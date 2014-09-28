@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>Linked list</title>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	; (function(exports){
+		
+		function Struct(value, next) {
+			this.value = value;
+			this.next = next;
+
+			if(typeof Struct.__initialized__ === 'undefined') {
+			
+				Struct.prototype.toString = function(showList){
+					var s = '(' + this.value + ')';
+					if(!showList) {
+						return s;
+					}else{
+						var next = this.next;
+						if(next === null) {
+							s += ' --> null';
+						}else{
+							s += ' --> ' + next.toString(true);
+						}
+					}
+
+					return s;
+				};
+			
+				Struct.__initialized__ = true;
+			}
+		}	
+
+		function LinkedList(firstNode){
+			this.head = firstNode;
+			this.head.next = null;
+			
+			if(typeof LinkedList.__initialized__ === 'undefined') {
+			
+				LinkedList.prototype.insertNode = function(node) {
+					node.next = this.head;
+					this.head = node;
+
+					return this;
+				};
+
+				LinkedList.prototype.toString = function(){
+					var nodes = [];
+					var cur = this.head;
+					while(cur.next !== null) {
+						nodes.push(cur);
+						cur = cur.next;
+					}
+
+					nodes.push(cur);
+
+					return nodes.join(' --> ');
+				};
+
+				LinkedList.prototype.parse = function(s){
+					var nodes = s.split('-->').map(function(i){
+						var v = i.replace('(', '').replace(')', '');
+						return new Struct(parseInt(v), null);
+					});
+
+					var l = new LinkedList(nodes[nodes.length-1]);
+					for(var i = nodes.length-2; i>=0; i--){
+						l.insertNode(nodes[i]);
+					}
+
+					return l;
+				};
+
+				LinkedList.prototype.reverse = function () {
+					var next = this.head.next;
+					this.head.next = null;
+
+					while(next !== null){
+						var nextnext = next.next;
+						next.next = this.head;
+						this.head = next;
+						next = nextnext;
+					}
+
+					return this;
+				};
+
+				LinkedList.__initialized__ = true;
+			}
+		}
+
+		// Tests
+		var node = new Struct(1, null);
+		var list = new LinkedList(node);
+		list.insertNode(new Struct(2, null));
+		list.insertNode(new Struct(3, null));
+		
+		console.log(list.toString());
+		console.assert('(3) --> (2) --> (1)' === list.toString(), '(3) --> (2) --> (1)');
+
+		list.reverse();
+		console.log(list.toString());
+		console.assert('(1) --> (2) --> (3)' === list.toString(), 'Reversing (3) --> (2) --> (1) should get (1) --> (2) --> (3)');
+
+		exports.Struct = Struct;
+		exports.LinkedList = LinkedList;
+	})(this);
+</script>
+<script type="text/javascript">
+	; (function(exports){
+		exports.list = null;
+
+		exports.addToList = function(){
+			var $structValue = document.getElementById('struct-value');
+
+			var structValue = $structValue.value;
+			if(structValue !== '') {
+				structValue = parseInt(structValue);
+				var struct = new Struct(structValue, null);
+
+				if(this.list === null) {
+					this.list = new LinkedList(struct);
+				}else{
+					this.list.insertNode(struct);
+				}
+			}
+
+			updateList();
+		};	
+
+		exports.updateList = function(){
+			if(this.list !== null) {
+				document.getElementById('list').innerHTML = this.list.toString();
+			}
+		};
+
+		exports.reverseList = function(){
+			if(this.list !== null) {
+				this.list.reverse();
+				updateList();
+			}
+		};
+	})(this);
+</script>
+</head>
+<body onload="updateList()">
+	<div id="list" style="border: solid 1px #ccc; padding: 10px 5px;"></div>
+	<p>
+		<input type="text" id="struct-value" value="1" /> 
+		<button id="btn-add-node" type="button" accessKey="A" onclick="addToList()">
+			<span style="text-decoration: underline;">A</span>dd Node
+		</button>
+		<button id="btn-reverse" type="button" accessKey="R" onclick="reverseList()">
+			<span style="text-decoration: underline;">R</span>everse
+		</button>
+	</p>
+</body>
+</html>
