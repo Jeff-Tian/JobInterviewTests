@@ -1,0 +1,174 @@
+<html>
+<head>
+<title>Dashboard</title>
+<style type="text/css">
+	html {
+		position: relative;
+	}
+
+	body {
+		background-color: black;
+		color: white;
+		font-family: Arial;
+		padding: 0;
+		box-sizing: border-box;
+		display: block;
+		max-width: 1024px;
+		max-height: 768px;
+		min-width: 380px;
+		min-height: 780px;
+		position: relative;
+	}
+
+	.wrapper {
+		position: relative;
+		margin: 1em 2.5em 3em 2.5em;
+	}
+
+	.header {
+		background-color: #10a8ab;
+		position: relative;
+		height: 80px;
+	}
+	
+	.main-content {
+		background-color: #151515;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 100px;
+		bottom: 0;
+		height: auto;
+		min-height: 700px;
+	}
+
+	.main-content:after{
+		display: block;
+		clear: both;
+		float: none;
+		content: '';
+	}
+
+	.grid {
+		background: transparent;
+		box-sizing: border-box;
+		float: left;
+		border-collapse: collapse;
+		margin: 0;
+		position: relative;
+	}
+
+	.half-wide {
+		width: 50%;
+	}
+
+	.quater-wide {
+		width: 25%;
+	}
+
+	.third-height {
+		height: 33.33333%;
+	}
+
+	.two-thirds-height {
+		height: 66.66666%;
+	}
+
+	.tile {
+		background-color: rgb(38, 38, 40);
+		background-color: rgba(38, 38, 40, 1);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+		padding: 8px 16px;
+		box-sizing: border-box;
+		margin: 0.5em 0.5em;
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+	}
+
+	.tile .title-bar h2 {
+		margin: 0;
+		font-size: large;
+		font-weight: normal;
+	}
+	
+	.tile .content {
+	}
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="header">
+	</div>
+	<div class="main-content">
+		<div class="grid half-wide third-height">
+			<div class="tile">
+				<div class="title-bar">
+					<h2>Tablet Device usage</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid half-wide third-height">
+			<div class="tile">
+				<div class="title-bar">
+					<h2>Best Selling</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid quater-wide two-thirds-height">
+			<div class="tile">
+				<div class="title-bar">
+					<h2>Monthly Summary</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid quater-wide two-thirds-height">
+			<div class="tile">
+				<div class="title-bar">
+					<h2>Monthly Sales</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid quater-wide third-height">
+			<div class="tile square-tile">
+				<div class="title-bar">
+					<h2>Audience Stats</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid quater-wide third-height">
+			<div class="tile square-tile">
+				<div class="title-bar">
+					<h2>App Stats</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+		<div class="grid half-wide third-height">
+			<div class="tile">
+				<div class="title-bar">
+					<h2>Social Media Engagement</h2>
+				</div>
+				<div class="content">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
