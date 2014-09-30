@@ -1,30 +1,35 @@
+<!DOCTYPE html>
 <html>
 <head>
+
 <title>Dashboard</title>
 <style type="text/css">
 	html {
 		position: relative;
+		height: 100%;
+		display: block;
 	}
 
 	body {
 		background-color: black;
 		color: white;
 		font-family: Arial;
-		padding: 0;
+		padding: 1.5em 2.5em 3em 2.5em;
 		box-sizing: border-box;
 		display: block;
-		max-width: 2000px;
-		max-height: 768px;
-		min-width: 320px;
-		min-height: 568px;
 		position: relative;
 		margin: 0;
+		height: auto;
+		height: 100%;
+		min-height: 100%;
 	}
 
 	.wrapper {
 		position: relative;
-		margin: 1.5em 2.5em 3em 2.5em;
-		height: 100%;
+		margin: 0; 
+		box-sizing: border-box;
+		height: auto;
+		min-height: 100%;
 	}
 
 	.header {
@@ -35,14 +40,13 @@
 	
 	.main-content {
 		background-color: #151515;
-		position: absolute;
+		padding: 30px 0.5em 0.5em 0.5em;
+		box-sizing: border-box;
+		top: 60px;
 		left: 0;
 		right: 0;
-		top: 60px;
-		padding: 30px 0.5em 0.5em 0.5em;
 		bottom: 0;
 		height: auto;
-		min-height: 700px;
 	}
 
 	.main-content:after{
@@ -71,10 +75,12 @@
 
 	.third-height {
 		height: 33.33333%;
+		min-height: 200px;
 	}
 
 	.two-thirds-height {
 		height: 66.66666%;
+		min-height: 400px;
 	}
 
 	.tile {
@@ -102,15 +108,12 @@
 	.tile .content {
 	}
 
-	@media all and (max-device-width: 320px) {
+	@media all and (max-width: 500px) {
 		body {
-			width: 320px;
 			position: relative;
 		}
 
 		.wrapper {
-			margin: 5px;
-			position: relative;
 		}
 
 		.half-wide {
