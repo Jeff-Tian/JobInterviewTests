@@ -36,8 +36,58 @@
 		background-color: #10a8ab;
 		position: relative;
 		height: 60px;
+		vertical-align: middle;
+	}
+
+	.header:after {
+		content: '';
+		float: none;
+		clear: both;
+		display: block;
 	}
 	
+	ul.menu-horizontal {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	ul.menu-horizontal > span {
+		height: 100%;
+		vertical-align: middle;
+		display: inline-block;
+	}
+
+	ul.menu-horizontal:before {
+		content: '';
+		display: inline;
+		vertical-align: middle;
+		height: 100%;
+	}
+
+	ul.menu-horizontal:after {
+		content: '';
+		clear: both;
+		float: none;
+		display: block;
+	}
+
+	ul.menu-horizontal li {
+		padding: 5px 10px;
+		box-sizing: border-box;
+		height: 100%;
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: middle;
+		float: left;
+	}
+
+	ul.menu-horizontal li:hover, ul.menu-horizontal li.selected {
+		background-color: #333333;
+	}
+
 	.main-content {
 		background-color: #151515;
 		padding: 30px 0.5em 0.5em 0.5em;
@@ -81,6 +131,22 @@
 	.two-thirds-height {
 		height: 66.66666%;
 		min-height: 400px;
+	}
+
+	.left {
+		float: left;
+	}
+
+	.right {
+		float: right;
+	}
+
+	.strong {
+		font-weight: bold;
+	}
+
+	.full-height {
+		height: 100%;
 	}
 
 	.tile {
@@ -130,6 +196,29 @@
 <body>
 <div class="wrapper">
 	<div class="header">
+		<ul class="menu-horizontal left full-height">
+			<span></span>
+			<li class="strong">
+				DashApp
+			</li>
+			<li class="strong selected">
+				DASHBOARD
+			</li>
+			<li>
+				REPORTS
+			</li>
+			<li>
+				FAVOURITES
+			</li>
+		</ul>
+		<ul class="menu-horizontal right full-height">
+			<li>
+				Search
+			</li>
+			<li>
+				User Info
+			</li>
+		</ul>
 	</div>
 	<div class="main-content">
 		<div class="grid half-wide third-height">
