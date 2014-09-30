@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Computer basic</title>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	; (function(exports){
+		exports.mergeArray = function (a, b){
+			var c = [];
+			
+			for(var i = 0, j = 0; i < a.length && j < b.length; ){
+				if(a[i] <= b[j]){
+					c.push(a[i]);
+					i++;
+				}else{
+					c.push(b[j]);
+					j++;
+				}
+			}
+			
+			if(i < a.length){
+				c = c.concat(a.slice(i, a.length));
+			}
+			
+			if(j < b.length){
+				c = c.concat(b.slice(j, b.length));
+			}
+			
+			return c;
+		}
+		
+		// Tests
+		function arrayEquals(expected, actual){
+			console.log(expected);
+			console.log(actual);
+			if(! expected instanceof Array) {
+				console.log(expected);
+				throw 'expected is not an array!';
+			}
+
+			if(! actual instanceof Array) {
+				console.log(actual);
+				throw 'actual is not an array!';
+			}
+
+			if(expected.length !== actual.length) {
+				console.log('expected length = <' + expected.length + '>, but actual length = <' + actual.length + '>');
+				return false;
+			}
+
+			for(var i = 0; i < expected.length; i++) {
+				if(expected[i] !== actual[i]) {
+					console.log('expected [' + i + '] = <' + expected[i] + '>, but actual [' + i + '] = <' + actual[i] + '>');
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		var a = [1, 2, 5, 6, 9];
+		var b = [3, 4, 10, 15];
+		var c = mergeArray(a, b);
+		
+		console.assert(arrayEquals([1, 2, 3, 4, 5, 6, 9, 10, 15], c), 'mergeArray([1, 2, 5, 6, 9], [3, 4, 10, 15] should be [1, 2, 3, 4, 5, 6, 9, 10, 15].');		
+	})(this);
+</script>
+<script type="text/javascript">
+	; (function(exports){
+		exports.updateC = function(){
+			var $a = document.getElementById('txt-a');
+			var $b = document.getElementById('txt-b');
+			var $c = document.getElementById('txt-c');
+
+			var a = $a.value;
+			if(a){
+				a = a.split(',').map(function(i){return parseInt(i);});
+			}
+
+			var b = $b.value;
+			if(b){
+				b = b.split(',').map(function(i){return parseInt(i);});
+			}
+
+			var c = mergeArray(a, b);
+			$c.value = c.join(', ');
+		};
+	})(this);
+</script>
+</head>
+<body onload="updateC()">
+	<p>a: <input type="text" id="txt-a" value="1, 2, 5, 6, 9" onkeyup="updateC()" /></p>
+	<p>b: <input type="text" id="txt-b" value="3, 4, 10, 15" onkeyup="updateC()" /></p>
+	<p>c: <input type="text" id="txt-c" value="" readonly /></p>
+</body>
+</html>

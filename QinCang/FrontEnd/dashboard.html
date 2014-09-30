@@ -54,19 +54,6 @@
 		vertical-align: middle;
 	}
 
-	ul.menu-horizontal > span {
-		height: 100%;
-		vertical-align: middle;
-		display: inline-block;
-	}
-
-	ul.menu-horizontal:before {
-		content: '';
-		display: inline;
-		vertical-align: middle;
-		height: 100%;
-	}
-
 	ul.menu-horizontal:after {
 		content: '';
 		clear: both;
@@ -82,10 +69,70 @@
 		display: inline-block;
 		vertical-align: middle;
 		float: left;
+		position: relative;
 	}
 
-	ul.menu-horizontal li:hover, ul.menu-horizontal li.selected {
+	ul.menu-horizontal li:before {
+		content: '';
+		display: inline;
+		height: 100%;
+		vertical-align: baseline;
+	}
+
+	ul.menu-horizontal li:hover {
+		background-color: #666;
+	}
+	
+	ul.menu-horizontal li.selected {
 		background-color: #333333;
+	}
+
+	ul.menu-horizontal li.selected:after {
+		content: '';
+		height: 0;
+		width: 0;
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		border-bottom: solid 8px #151515;
+		border-top: solid 8px transparent;
+		border-left: solid 8px transparent;
+		border-right: solid 8px transparent;
+		margin: 0 auto 0 -8px;
+	}
+
+	ul.menu-horizontal li.title a {
+		font-size: larger;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+
+	ul.menu-horizontal li a:link {
+		text-decoration: none;
+		color: white;
+		vertical-align: baseline;
+		display: inline-block;
+	}
+
+	ul.menu-horizontal li a:visited {
+		text-decoration: none;
+		color: white;
+		display: inline-block;
+	}
+
+	ul.menu-horizontal li a:hover {
+		text-decoration: none;
+		color: yellow;
+		font-weight: bold;
+		display: inline-block;
+	}
+
+	ul.menu-horizontal li a:active {
+		text-decoration: none;
+		color: red;
+		font-weight: bold;
+		display: inline-block;
 	}
 
 	.main-content {
@@ -174,6 +221,20 @@
 	.tile .content {
 	}
 
+	.user-info {
+	}
+
+	.circular {
+		height: 35px;
+		width: 35px;
+		border-radius: 50%;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		background: url('Dashboard/images/profile.png') no-repeat center center;
+	       	background-size: 100% 100%;	
+		margin-top: 7.5px;
+	}
+
 	@media all and (max-width: 500px) {
 		body {
 			position: relative;
@@ -197,26 +258,41 @@
 <div class="wrapper">
 	<div class="header">
 		<ul class="menu-horizontal left full-height">
-			<span></span>
-			<li class="strong">
-				DashApp
+			<li class="strong title">
+				<a href="#">
+					DashApp
+				</a>
 			</li>
 			<li class="strong selected">
-				DASHBOARD
+				<a href="#">
+					DASHBOARD
+				</a>
 			</li>
 			<li>
-				REPORTS
+				<a href="#">
+					REPORTS
+				</a>
 			</li>
 			<li>
-				FAVOURITES
+				<a href="#">
+					FAVOURITES
+				</a>
 			</li>
 		</ul>
 		<ul class="menu-horizontal right full-height">
 			<li>
-				Search
+				<a href="#">
+					Search
+				</a>
 			</li>
 			<li>
-				User Info
+				<a href="#" class="user-info">
+					Jeff Tian
+				</a>
+			</li>
+			<li>
+				<div class="circular">
+				</div>
 			</li>
 		</ul>
 	</div>
