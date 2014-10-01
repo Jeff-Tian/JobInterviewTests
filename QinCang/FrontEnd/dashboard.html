@@ -536,7 +536,25 @@
 				},
 				yaxis: {
 					       tickColor: '#333'
-				       }
+				       },
+				comment: {
+						show: true,
+						wrapperCss: {
+				                	"background-color": "#F2AC64",
+				                	"color": "white"
+						}, 
+						notch: {
+                					color: "#F2AC64"
+						       }
+						
+					 },
+				comments: [
+					  {
+						  x: 1396281600000,
+						     y: 20,
+						     contents: '-22%'
+					  }
+					]
 			};
 
 			$.plot($('.audience-stats-canvas-wrapper'), data, options);
