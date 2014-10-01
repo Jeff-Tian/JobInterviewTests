@@ -37,6 +37,7 @@
 	.header {
 		background-color: #10a8ab;
 		position: relative;
+		font-size: smaller;
 		height: 60px;
 		vertical-align: middle;
 	}
@@ -179,7 +180,7 @@
 		width: 50%;
 	}
 
-	.quater-wide {
+	.quarter-wide {
 		width: 25%;
 	}
 
@@ -283,8 +284,8 @@
 		margin-top: 7.5px;
 	}
 
-	.eighty-percent-wide {
-		width: 80%;
+	.seventy-percent-wide {
+		width: 70%;
 	}
 
 	.twenty-percent-wide {
@@ -418,7 +419,9 @@
 
 	.stack-box {
 		display: inline-block;
-		width: 60px;
+		min-width: 20px;
+		max-width: 60px;
+		width: 10%;
 	}
 
 	.stack-box .main {
@@ -460,22 +463,86 @@
 		color: #BDBDBF;
 	}
 
-	@media all and (max-width: 500px) {
+
+	@media 
+	only screen 
+	and (min-device-width : 320px)
+	and (max-device-width : 480px), 
+	all 
+	and (max-width : 800px) {
 		body {
 			position: relative;
+			padding: 0;
+		}
+
+		.header {
+			height: auto;
 		}
 
 		.wrapper {
+		}
+
+		.main-content {
+			position: relative;
+			top: 0;
 		}
 
 		.half-wide {
 			width: 100%;
 		}
 
-		.quater-wide {
+		.quarter-wide {
 			width: 100%;
 		}
 
+		ul.menu-horizontal {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			display: block;
+			vertical-align: middle;
+		}
+	
+		ul.menu-horizontal:after {
+			content: '';
+			clear: both;
+			float: none;
+			display: block;
+		}
+
+		ul.menu-horizontal li {
+			padding: 5px 10px;
+			box-sizing: border-box;
+			height: 100%;
+			cursor: pointer;
+			display: block;
+			width: 100%;
+			vertical-align: middle;
+			position: relative;
+		}
+
+		ul.menu-horizontal li:first-child {
+			height: 50px;
+			padding-top: 15px;
+		}
+
+		ul.menu-horizontal li.selected:after {
+			content: '';
+			border: none;
+		}
+
+		ul.menu-horizontal.right {
+			width: auto;
+			float: right;
+			position: absolute;
+			right: 0;
+		}
+
+		ul.menu-horizontal.right li {
+			float: left;
+			width: auto;
+			padding-top: 0;
+		}
 	}
 </style>
 <!--[if lt IE 9]>
@@ -565,6 +632,22 @@
 <body>
 <div class="wrapper">
 	<div class="header">
+		<ul class="menu-horizontal right full-height">
+			<li>
+				<a href="#">
+					<span class="icon icon-search"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="user-info">
+					Jeff Tian
+				</a>
+			</li>
+			<li>
+				<div class="circular">
+				</div>
+			</li>
+		</ul>
 		<ul class="menu-horizontal left full-height">
 			<li class="strong title">
 				<a href="#">
@@ -590,22 +673,7 @@
 				</a>
 			</li>
 		</ul>
-		<ul class="menu-horizontal right full-height">
-			<li>
-				<a href="#">
-					<span class="icon icon-search"></span>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="user-info">
-					Jeff Tian
-				</a>
-			</li>
-			<li>
-				<div class="circular">
-				</div>
-			</li>
-		</ul>
+
 	</div>
 	<div class="main-content">
 		<div class="grid half-wide third-height">
@@ -614,19 +682,19 @@
 					<h2>Tablet Device usage</h2>
 				</div>
 				<div class="content">
-					<span class="bar eighty-percent-wide">
+					<span class="bar seventy-percent-wide">
 						<span class="indicator" style="width: 42%"></span>
 					</span>
 					<span class="x-large-font margin-left percentage">42</span>
 					<div class="normal-font">iOS</div>
 
-					<span class="bar eighty-percent-wide">
+					<span class="bar seventy-percent-wide">
 						<span class="indicator" style="width: 36%"></span>
 					</span>
 					<span class="x-large-font margin-left percentage">36</span>
 					<div class="normal-font">Android</div>
 
-					<span class="bar eighty-percent-wide">
+					<span class="bar seventy-percent-wide">
 						<span class="indicator" style="width: 22%"></span>
 					</span>
 					<span class="x-large-font margin-left percentage">22</span>
@@ -680,7 +748,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid quater-wide two-thirds-height">
+		<div class="grid quarter-wide two-thirds-height">
 			<div class="tile">
 				<div class="title-bar">
 					<h2>Monthly Summary</h2>
@@ -689,7 +757,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid quater-wide two-thirds-height">
+		<div class="grid quarter-wide two-thirds-height">
 			<div class="tile">
 				<div class="title-bar">
 					<h2>Monthly Sales</h2>
@@ -698,7 +766,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid quater-wide third-height">
+		<div class="grid quarter-wide third-height">
 			<div class="tile square-tile">
 				<div class="title-bar">
 					<h2>Audience Stats</h2>
@@ -708,7 +776,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid quater-wide third-height">
+		<div class="grid quarter-wide third-height">
 			<div class="tile square-tile">
 				<div class="title-bar">
 					<h2>App Stats</h2>
@@ -750,7 +818,7 @@
 				<div class="justify-align">
 					<div class="stack-box">
 						<div class="main center-align middle-align">
-							<span class="middle-align" style="display: inline-block;">
+							<span class="middle-align" style="display: inline-block; font-size: small;">
 								AUG
 								<br />
 								2014
