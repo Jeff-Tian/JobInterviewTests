@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>Dashboard</title>
+<link rel="stylesheet" type="text/css" href="Dashboard/css/style.css" />
 <style type="text/css">
 	html {
 		position: relative;
@@ -12,7 +14,7 @@
 
 	body {
 		background-color: black;
-		color: white;
+		color: #efefef;
 		font-family: Arial;
 		padding: 1.5em 2.5em 3em 2.5em;
 		box-sizing: border-box;
@@ -212,6 +214,22 @@
 		left: 0;
 	}
 
+	.tile .title-bar h2:after {
+		content: "\2638";
+		font-family: 'icomoon';
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		float: right;
+	}
+
 	.tile .title-bar h2 {
 		margin: 0;
 		font-size: large;
@@ -219,6 +237,8 @@
 	}
 	
 	.tile .content {
+		box-sizing: border-box;
+		padding: 0.5em 0;
 	}
 
 	.user-info {
@@ -233,6 +253,109 @@
 		background: url('Dashboard/images/profile.png') no-repeat center center;
 	       	background-size: 100% 100%;	
 		margin-top: 7.5px;
+	}
+
+	.eighty-percent-wide {
+		width: 80%;
+	}
+
+	.twenty-percent-wide {
+		width: 20%;
+	}
+
+	.bar {
+		height: 1em;
+		display: inline-block;
+		background-color: #141416;
+	}
+
+	.bar .indicator {
+		height: 100%;
+		width: 0;
+		background-color: #10a8ab;
+		display: inline-block;
+	}
+
+	.large-font {
+		font-size: large;
+	}
+
+	.normal-font {
+		font-size: medium; 
+	}
+
+	.xx-large-font {
+		font-size: xx-large;
+	}
+
+	.x-large-font {
+		font-size: x-large;
+	}
+
+	.margin-left {
+		margin-left: 10px;
+	}
+
+	.percentage:after {
+		vertical-align: top;
+		display: inline-block;
+		margin-top: 2px;
+		content: '%';
+		font-size: medium;
+	}
+
+	.positive:before {
+		content: '+';
+		color: #12A7A8;
+		margin-right: 5px;
+	}
+
+	.negative:before {
+		content: '-';
+		color: #12A7A8;
+		margin-right: 5px;
+	}
+
+	.left-align {
+		text-align: left;
+	}
+
+	.center-align {
+		text-align: center;
+	}
+
+	.right-align {
+		text-align: right;
+	}
+
+	.top-align {
+		vertical-align: top;
+	}
+
+	table.simple {
+		width: auto;
+		border-spacing: 0;
+		margin: auto;
+	}
+
+	table.simple th, table.simple td {
+		padding: 0.5em 0;
+	}
+
+	table.simple th:first-child, table.simple td:first-child {
+		text-align: left;
+	}
+
+	table.simple th:nth-child(2), table.simple td:nth-child(2) {
+		text-align: center;
+	}
+
+	table.simple th:last-child, table.simple td:last-child {
+		text-align: right;
+	}
+
+	table.simple thead tr:last-child th, table.simple thead tr:last-child td {
+		border-bottom: solid 1px white;
 	}
 
 	@media all and (max-width: 500px) {
@@ -265,16 +388,19 @@
 			</li>
 			<li class="strong selected">
 				<a href="#">
+					<span class="icon icon-dashboard"></span>
 					DASHBOARD
 				</a>
 			</li>
 			<li>
 				<a href="#">
+					<span class="icon icon-chart"></span>
 					REPORTS
 				</a>
 			</li>
 			<li>
 				<a href="#">
+					<span class="icon icon-star"></span>
 					FAVOURITES
 				</a>
 			</li>
@@ -282,7 +408,7 @@
 		<ul class="menu-horizontal right full-height">
 			<li>
 				<a href="#">
-					Search
+					<span class="icon icon-search"></span>
 				</a>
 			</li>
 			<li>
@@ -303,6 +429,23 @@
 					<h2>Tablet Device usage</h2>
 				</div>
 				<div class="content">
+					<span class="bar eighty-percent-wide">
+						<span class="indicator" style="width: 42%"></span>
+					</span>
+					<span class="x-large-font margin-left percentage">42</span>
+					<div class="normal-font">iOS</div>
+
+					<span class="bar eighty-percent-wide">
+						<span class="indicator" style="width: 36%"></span>
+					</span>
+					<span class="x-large-font margin-left percentage">36</span>
+					<div class="normal-font">Android</div>
+
+					<span class="bar eighty-percent-wide">
+						<span class="indicator" style="width: 22%"></span>
+					</span>
+					<span class="x-large-font margin-left percentage">22</span>
+					<div class="normal-font">Windows</div>
 				</div>
 			</div>
 		</div>
@@ -312,6 +455,43 @@
 					<h2>Best Selling</h2>
 				</div>
 				<div class="content">
+					<table class="simple">
+						<colgroup>
+							<col class="twenty-percent-wide" />
+							<col class="twenty-percent-wide" />
+							<col class="twenty-percent-wide" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>Week</th>
+								<th>Month</th>
+								<th>Change</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>2nd</th>
+								<th>JUN 2014</th>
+								<td>
+									<span class="positive">21%</span>
+								</td>
+							</tr>
+							<tr>
+								<th>3rd</th>
+								<th>JUL 2014</th>
+								<td>
+									<span class="positive">14%</span>
+								</td>
+							</tr>
+							<tr>
+								<th>1st</th>
+								<th>AUG 2014</th>
+								<td>
+									<span class="negative">10%</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
