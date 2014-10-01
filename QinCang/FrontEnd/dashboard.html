@@ -16,6 +16,7 @@
 		background-color: black;
 		color: #efefef;
 		font-family: Arial;
+		font-size: smaller;
 		padding: 1.5em 2.5em 3em 2.5em;
 		box-sizing: border-box;
 		display: block;
@@ -37,8 +38,7 @@
 	.header {
 		background-color: #10a8ab;
 		position: relative;
-		font-size: smaller;
-		height: 60px;
+		height: 50px;
 		vertical-align: middle;
 	}
 
@@ -140,9 +140,9 @@
 
 	.main-content {
 		background-color: #151515;
-		padding: 30px 0.5em 0.5em 0.5em;
+		padding: 20px 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
-		top: 60px;
+		top: 50px;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -174,6 +174,7 @@
 		border-collapse: collapse;
 		margin: 0;
 		position: relative;
+		font-size: smaller;
 	}
 
 	.half-wide {
@@ -186,12 +187,12 @@
 
 	.third-height {
 		height: 33.33333%;
-		min-height: 200px;
+		min-height: 190px;
 	}
 
 	.two-thirds-height {
 		height: 66.66666%;
-		min-height: 400px;
+		min-height: 380px;
 	}
 
 	.left {
@@ -274,14 +275,23 @@
 	}
 
 	.circular {
-		height: 35px;
-		width: 35px;
+		height: 30px;
+		width: 30px;
 		border-radius: 50%;
 		-webkit-border-radius: 50%;
 		-moz-border-radius: 50%;
 		background: url('Dashboard/images/profile.png') no-repeat center center;
 	       	background-size: 100% 100%;	
 		margin-top: 7.5px;
+		border: solid 2px white;
+	}
+
+	.circle {
+		display: block;
+		border-radius: 50%;
+		border-width: 2px;
+		border-style: solid;
+		border-color: inherit;
 	}
 
 	.seventy-percent-wide {
@@ -463,6 +473,57 @@
 		color: #BDBDBF;
 	}
 
+	.row {
+		margin: 1em 0;
+	}
+
+	.row:after {
+		float: none;
+		content: '';
+		clear: both;
+		display: block;
+	}
+
+	.row .col-left {
+		float: left;
+		width: auto;
+		min-width: 50px;
+		text-align: center;
+	}
+
+	.row .col-middle {
+		float: left;
+		width: auto;
+		font-size: x-large;
+		text-align: center;
+		margin-top: 10px;
+		min-width: 100px;
+	}
+
+	.row .col-right {
+		margin-top: 25px;
+		float: left;
+		width: auto;
+		text-align: center;
+	}
+
+	.stack-box .main .icon {
+		font-size: large;
+	}
+
+	@media
+	all 
+	and (min-width : 800px)
+	and (max-width : 1100px) {
+		.row .col-middle {
+			min-width: 10px;
+			font-size: small;
+		}
+
+		.row .col-right {
+			min-width: 10px;
+		}
+	}
 
 	@media 
 	only screen 
@@ -628,6 +689,51 @@
 			};
 
 			$.plot($('.audience-stats-canvas-wrapper'), data, options);
+
+			data = [
+			{
+				label: 'followers',
+					       data: [
+						       [1, 0],
+					       [2, 28000], 
+					       [3, 11000],
+					       [4, 16000],
+					       [5, 0]
+						       ],
+					       lines: {
+						       show: true,
+							     fill: true
+					       }
+			},
+			{
+				label: 'likes',
+				       data: [
+					       [1, 0], 
+				       [2, 15000],
+				       [3, 10000],
+				       [4, 20000],
+				       [5, 0]
+					       ],
+				       lines: {
+					       show: true,
+						     fill: true
+				       }
+			}
+				];
+
+				options = $.extend(true, options, {
+					series: {
+						points: {
+							show: false
+						}
+						},
+					legend: {
+						show: true,
+						position: 'se'
+					}
+						});
+
+			$.plot($('.monthly-summary-canvas-wrapper'), data, options);
 		});
 })(jQuery);
 </script>
@@ -757,6 +863,10 @@
 					<h2>Monthly Summary</h2>
 				</div>
 				<div class="content">
+					<div class="content fill-space">
+						<div class="monthly-summary-canvas-wrapper full-height">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -766,6 +876,52 @@
 					<h2>Monthly Sales</h2>
 				</div>
 				<div class="content">
+					<div class="row">
+						<div class="circle center-align middle-align col-left" style="border-color: #10A8AB; height: 50px; width: 50px; float: left;">
+							<span class="middle-align" style="display: inline-block;">AUG<br />2014</span>
+						</div>
+					 	<div class="col-middle middle-align" style="float: left;">
+							10<sup>k</sup>
+						</div>
+						<div class="col-right middle-align" style="float: left;">
+							<span style="color: #10A8AB;">+</span> 21%
+						</div>
+					</div>
+					<div class="row">
+						<div class="circle center-align middle-align col-left" style="border-color: #C68F45; height: 50px; width: 50px;">
+							<span class="middle-align" style="display: inline-block;">AUG<br />2014</span>
+						</div>
+						<div class="col-middle middle-align">
+							12<sup>k</sup>
+						</div>
+						<div class="col-right middle-align">
+							<span style="color: #C68F45;">-</span> 10%
+						</div>
+					</div>
+					<div class="row">
+						<div class="circle center-align middle-align col-left" style="border-color: #E64B6A; height: 50px; width: 50px;">
+							<span class="middle-align" style="display: inline-block;">AUG<br />2014</span>
+						</div>
+						<div class="col-middle middle-align">
+							2<sup>k</sup>
+						</div>
+						<div class="col-right middle-align">
+							<span style="color: #E64B6A;">+</span> 11%
+						</div>
+					</div>
+					<p><br /></p>
+					<div class="row">
+						<div class="circle" style="border-color: #0AA8B4; width: 6px; height: 6px; background-color: #0AA8B4; margin-left: 2em; display: inline-block;"></div>
+						<span>New Customers</span>
+					</div>
+					<div class="row">
+						<div class="circle" style="border-color: #F1B253; width: 6px; height: 6px; background-color: #F1B253; margin-left: 2em; display: inline-block;"></div>
+						<span>Sales</span>
+					</div>
+					<div class="row">
+						<div class="circle" style="border-color: #DE5067; width: 6px; height: 6px; background-color: #DE5067; margin-left: 2em; display: inline-block;"></div>
+						<span>Rebounds</span>
+					</div>
 				</div>
 			</div>
 		</div>
