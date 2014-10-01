@@ -155,6 +155,17 @@
 		content: '';
 	}
 
+	.fill-space {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: auto;
+		margin: 8px 16px;
+		box-sizing: border-box;
+	}
+
 	.grid {
 		background: transparent;
 		box-sizing: border-box;
@@ -445,6 +456,10 @@
 		background-color: black;
 	}
 
+	.audience-stats-canvas-wrapper .flot-tick-label {
+		color: #BDBDBF;
+	}
+
 	@media all and (max-width: 500px) {
 		body {
 			position: relative;
@@ -463,6 +478,71 @@
 
 	}
 </style>
+<!--[if lt IE 9]>
+	<script type="text/javascript" src="Dashboard/Scripts/html5/html5shiv.js"></script>
+<![endif]-->
+<!--[if lte IE 8]>
+	<script language="javascript" type="text/javascript" src="Dashboard/Scripts/flot/excanvas.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="Dashboard/Scripts/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="Dashboard/Scripts/jquery.colorhelpers.js"></script>
+<script type="text/javascript" src="Dashboard/Scripts/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="Dashboard/Scripts/flot/jquery.flot.comments.js"></script>
+<script type="text/javascript" src="Dashboard/Scripts/flot/jquery.flot.time.js"></script>
+<script type="text/javascript">
+;(function($){
+		$(document).ready(function(){
+			var data = [
+				{
+					label: 'yellow',
+					data: [
+						[1394603200000, 14],
+						[1396281600000, 20], 
+						[1398873600000, 10], 
+						[1401552000000, 10],
+						[1404144000000, 10]
+					]
+				},
+				{
+					label: 'cyan',
+					data: [
+						[1394603200000, 6],
+						[1396281600000, 10], 
+						[1398873600000, 16], 
+						[1401552000000, 21],
+						[1404144000000, 15]
+					]
+				}
+			];
+
+			var options = {
+				series: {
+					lines: { show: true },
+					points: { show: true }
+				},
+				legend: {
+					show: false
+				},
+				xaxis: {
+					mode: 'time',
+				       	timeformat: '%b',
+					monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					ticks: null,
+				       	tickColor: 'transparent',
+				},
+				grid: {
+				      	show: true,
+					borderWidth: 0
+				},
+				yaxis: {
+					       tickColor: '#333'
+				       }
+			};
+
+			$.plot($('.audience-stats-canvas-wrapper'), data, options);
+		});
+})(jQuery);
+</script>
 </head>
 <body>
 <div class="wrapper">
@@ -605,7 +685,8 @@
 				<div class="title-bar">
 					<h2>Audience Stats</h2>
 				</div>
-				<div class="content">
+				<div class="content fill-space">
+					<div class="audience-stats-canvas-wrapper full-height"></div>
 				</div>
 			</div>
 		</div>
