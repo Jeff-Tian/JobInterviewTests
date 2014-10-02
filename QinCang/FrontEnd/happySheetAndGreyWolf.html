@@ -85,8 +85,19 @@ var HappySheet = function (x, y) {
 	this.x = x;
 	this.y = y;
 
+	if(typeof HappySheet.__initialized__ === 'undefined') {
+
+		HappySheet.prototype.call = function (message) {
+			alert(message);
+		};
+
+		HappySheet.__initialized__ = true;
+	}
+
 	return this;
 }
+
+exports.HappySheet = HappySheet;
 
 /**
   * View
@@ -97,10 +108,10 @@ var NaiveGreenPlainView = function (model) {
 	if(typeof NaiveGreenPlainView.__initialized__ === 'undefined') {
 		NaiveGreenPlainView.prototype.output = function () {
 			var data = 
-				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;">' +
+				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;" model="model">' +
 				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;">' +
 				'</div>' +
-				'<div class="happy-sheet" style="left: <%= sheet.x %>; top: <%= sheet.y %>;">' +
+				'<div class="happy-sheet" style="left: <%= sheet.x %>; top: <%= sheet.y %>;" onclick="naiveMVC.model.sheet.call(\'Help!!!\')">' +
 				'</div>';
 			var instance = this;
 
@@ -111,15 +122,18 @@ var NaiveGreenPlainView = function (model) {
 		};
 
 		NaiveGreenPlainView.prototype.render = function () {
-			document.getElementById('output').innerHTML = this.output();
+			var elem = document.getElementById('output');
+			elem.innerHTML = this.output();
 		};
 
-		this.__initialized__ = true;
+		NaiveGreenPlainView.__initialized__ = true;
 	}
 
 	return this;
 };
 
+
+var naiveMVC = {};
 
 /**
   * Controller
@@ -136,6 +150,8 @@ var GreenPlainController = function () {
 			model.sheet = happySheet;
 			var view = new NaiveGreenPlainView(model);
 			view.render();
+
+			naiveMVC.model = model;
 		};
 
 		GreenPlainController.__initialized__ = true;
@@ -144,23 +160,28 @@ var GreenPlainController = function () {
 	return this;
 };
 
-exports.GreenPlainController = GreenPlainController;
+naiveMVC.controllers = {
+	GreenPlainController: GreenPlainController
+};
+
+exports.naiveMVC = naiveMVC;
 })(this);
 </script>
 
 </head>
-<body>
+<body controller="GreenPlainController">
 <div id="output">
 </div>
 <script type="text/javascript">
-;(function(exports, GreenPlainController) {
+;(function(exports, naiveMVC) {
 	function bootstrapper() {
-		var controller = new GreenPlainController();
+		var controllerName = document.body.getAttribute('controller');
+		var controller = new naiveMVC.controllers['GreenPlainController']();
 		controller.loadView();
 	}
 
 	bootstrapper();
-})(this, this['GreenPlainController']);
+})(this, this['naiveMVC']);
 </script>
 </body>
 </html>
