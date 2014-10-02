@@ -105,6 +105,7 @@ var naiveMVC = {};
 /**
   * Model
   */
+
 var GreenPlainModel = function (width, height) {
 	this.width = width;
 	this.height = height;
@@ -112,9 +113,12 @@ var GreenPlainModel = function (width, height) {
 	return this;
 };
 
-var GreyWolf = function (x, y) {
-	this.x = x;
+var UIAnimate = function (x, y) {
+	this.x = x; 
 	this.y = y;
+};
+
+var GreyWolf = function (x, y) { UIAnimate.call(this, x, y);
 
 	if(typeof GreyWolf.__initialized__ === 'undefined') {
 
@@ -129,15 +133,14 @@ var GreyWolf = function (x, y) {
 			sheep.y = parseInt(pot.y) + 8 + 'px';
 		};
 
+
 		GreyWolf.__initialized__ = true;
 	}
 
 	return this;
-};
+}; GreyWolf.prototype = new UIAnimate();
 
-var BeautySheep = function (x, y, lover) {
-	this.x = x;
-	this.y = y;
+var BeautySheep = function (x, y, lover) { UIAnimate.call(this, x, y);
 	this.lover = lover;
 	lover.lover = this;
 
@@ -153,11 +156,9 @@ var BeautySheep = function (x, y, lover) {
 	}
 
 	return this;
-}
+}; BeautySheep.prototype = new UIAnimate();
 
-var HappySheep = function(x, y) {
-	this.x = x;
-	this.y = y;
+var HappySheep = function(x, y) { UIAnimate.call(this, x, y);
 
 	if(typeof HappySheep.__initialized__ === 'undefined') {
 		
@@ -214,12 +215,10 @@ var HappySheep = function(x, y) {
 	}
 
 	return this;
-};
+}; HappySheep.prototype = new UIAnimate();
 
-var Pot = function(x, y) {
-	this.x = x;
-	this.y = y;
-};
+var Pot = function(x, y) { UIAnimate.call(this, x, y);
+}; Pot.prototype = new UIAnimate();
 
 /**
   * View
@@ -230,10 +229,10 @@ var NaiveGreenPlainView = function (model) {
 	if(typeof NaiveGreenPlainView.__initialized__ === 'undefined') {
 		NaiveGreenPlainView.prototype.output = function () {
 			var data = 
-				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;" model="model">' +
-				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;" onclick="naiveMVC.model.wolf.laugh(\'Ha Haa Haaaaa!\'); naiveMVC.model.wolf.putToPot(naiveMVC.model.beautySheep, naiveMVC.model.pot)">' +
+				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;">' +
+				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;" onclick="<%# wolf.laugh(\'Ha Haa Haaaaa!\'); naiveMVC.model.wolf.putToPot(naiveMVC.model.beautySheep, naiveMVC.model.pot) %>">' +
 				'</div>' +
-				'<div class="beauty-sheep" style="left: <%= beautySheep.x %>; top: <%= beautySheep.y %>;" onclick="naiveMVC.model.beautySheep.call(\'Help!!!\')">' +
+				'<div class="beauty-sheep" style="left: <%= beautySheep.x %>; top: <%= beautySheep.y %>;" onclick="<%# beautySheep.call(\'Help!!!\') %>">' +
 				'</div>' + 
 				'<div class="happy-sheep" style="left: <%= happySheep.x %>; top: <%= happySheep.y %>;">' +
 				'</div>' +
@@ -242,10 +241,16 @@ var NaiveGreenPlainView = function (model) {
 				'</div>';
 			var instance = this;
 
-			return data.replace(/<%=\s+(.*?)\s+%>/g, function (match, group1) {
+			data = data.replace(/<%=\s+(.*?)\s+%>/g, function (match, group1) {
 					eval('var o = instance.model.' + group1 + ';');
 					return o;
 					});
+
+			data = data.replace(/<%#\s+(.*?)\s+%>/g, function (match, group1) {
+					return 'naiveMVC.model.' + group1;
+					});
+
+			return data;
 		};
 
 		NaiveGreenPlainView.prototype.render = function () {
