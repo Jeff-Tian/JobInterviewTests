@@ -5,6 +5,57 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>Haapy Sheep and Grey Wolf</title>
 <style type="text/css">
+.grey-wolf {
+	background-color: grey;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: solid 2px darkgray;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.grey-wolf:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.grey-wolf:after {
+	content: 'Grey Wolf!';
+	margin: auto;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.happy-sheet {
+	background-color: white;
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	border-radius: 40%;
+	border: solid 5px black;
+	vertical-align: middle;
+	text-align: center;
+	transform: rotate(90deg);
+}
+
+.happy-sheet:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.happy-sheet:after {
+	content: ': )';
+	font-family: Arial;
+	margin: auto;
+	font-weight: bold;
+	vertical-align: middle;
+}
 </style>
 <script type="text/javascript">
 ;(function(exports) {
@@ -23,6 +74,19 @@ var GreenPlainModel = function (width, height) {
 	return this;
 };
 
+var GreyWolf = function (x, y) {
+	this.x = x;
+	this.y = y;
+
+	return this;
+};
+
+var HappySheet = function (x, y) {
+	this.x = x;
+	this.y = y;
+
+	return this;
+}
 
 /**
   * View
@@ -32,11 +96,17 @@ var NaiveGreenPlainView = function (model) {
 
 	if(typeof NaiveGreenPlainView.__initialized__ === 'undefined') {
 		NaiveGreenPlainView.prototype.output = function () {
-			var data = '<div style="width: <%= width %>; height: <%= height %>; background-color: green;"></div>';
+			var data = 
+				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;">' +
+				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;">' +
+				'</div>' +
+				'<div class="happy-sheet" style="left: <%= sheet.x %>; top: <%= sheet.y %>;">' +
+				'</div>';
 			var instance = this;
 
 			return data.replace(/<%=\s+(.*?)\s+%>/g, function (match, group1) {
-					return instance.model[group1];
+					eval('var o = instance.model.' + group1 + ';');
+					return o;
 					});
 		};
 
@@ -59,7 +129,11 @@ var GreenPlainController = function () {
 
 	if(typeof GreenPlainController.__initialized__ === 'undefined') {
 		GreenPlainController.prototype.loadView = function () {
+			var greyWolf = new GreyWolf('200px', '150px');
+			var happySheet = new HappySheet('300px', '155px');
 			var model = new GreenPlainModel('800px', '600px');
+			model.wolf = greyWolf;
+			model.sheet = happySheet;
 			var view = new NaiveGreenPlainView(model);
 			view.render();
 		};
