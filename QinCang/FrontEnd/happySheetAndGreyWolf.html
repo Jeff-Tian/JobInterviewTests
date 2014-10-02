@@ -14,13 +14,7 @@
 	border: solid 2px darkgray;
 	vertical-align: middle;
 	text-align: center;
-}
-
-.grey-wolf:before {
-	content: '';
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
+	z-index: 1;
 }
 
 .grey-wolf:after {
@@ -30,25 +24,19 @@
 	vertical-align: middle;
 }
 
-.beauty-sheet {
+.beauty-sheep {
 	background-color: white;
 	position: absolute;
 	width: 80px;
 	height: 80px;
 	border-radius: 40%;
-	border: solid 6px red;
+	border: solid 6px pink;
 	vertical-align: middle;
 	text-align: center;
+	z-index: 1;
 }
 
-.beauty-sheet:before {
-	content: '';
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-}
-
-.beauty-sheet:after {
+.beauty-sheep:after {
 	content: '(*^.^*)';
 	font-family: Arial;
 	margin: auto;
@@ -56,7 +44,7 @@
 	vertical-align: middle;
 }
 
-.happy-sheet {
+.happy-sheep {
 	background-color: #eee;
 	position: absolute;
 	width: 70px;
@@ -66,23 +54,44 @@
 	vertical-align: middle;
 	text-align: center;
 	transform: rotate(90deg);
+	z-index: 1;
 }
 
-.happy-sheet:before {
-	content: '';
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-}
-
-.happy-sheet:after {
+.happy-sheep:after {
 	content: ': )';
 	font-family: Arial;
 	margin: auto;
 	font-weight: bold;
 	vertical-align: middle;
 }
+
+.pot {
+	background-color: red;
+	position: absolute;
+	width: 110px;
+	height: 110px;
+	border-radius: 100%;
+	border: solid 2px black;
+	text-align: center;
+	z-index: 0;
 }
+
+
+.pot:after {
+	content: 'Hot Pot';
+	font-family: Arial;
+	font-weight: bold;
+	vertical-align: middle;
+	color: white;
+}
+
+.grey-wolf:before, .beauty-sheep:before, .happy-sheep:before, .pot:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
 </style>
 <script type="text/javascript">
 ;(function(exports) {
@@ -107,51 +116,110 @@ var GreyWolf = function (x, y) {
 	this.x = x;
 	this.y = y;
 
+	if(typeof GreyWolf.__initialized__ === 'undefined') {
+
+		GreyWolf.prototype.laugh = function (message) {
+			console.log('Ha haa haaaaaa!');
+			alert(message);
+		};
+
+		GreyWolf.prototype.putToPot = function(sheep, pot) {
+			console.log('Put you to pot, haha.');
+			sheep.x = parseInt(pot.x) + 8 + 'px';
+			sheep.y = parseInt(pot.y) + 8 + 'px';
+		};
+
+		GreyWolf.__initialized__ = true;
+	}
+
 	return this;
 };
 
-var BeautySheet = function (x, y, lover) {
+var BeautySheep = function (x, y, lover) {
 	this.x = x;
 	this.y = y;
 	this.lover = lover;
 	lover.lover = this;
 
-	if(typeof BeautySheet.__initialized__ === 'undefined') {
+	if(typeof BeautySheep.__initialized__ === 'undefined') {
 
-		BeautySheet.prototype.call = function (message) {
+		BeautySheep.prototype.call = function (message) {
 			console.log('Help please!!!');			
 			alert(message);
 			lover.help();
 		};
 
-		BeautySheet.__initialized__ = true;
+		BeautySheep.__initialized__ = true;
 	}
 
 	return this;
 }
 
-var HappySheet = function(x, y) {
+var HappySheep = function(x, y) {
 	this.x = x;
 	this.y = y;
 
-	if(typeof HappySheet.__initialized__ === 'undefined') {
+	if(typeof HappySheep.__initialized__ === 'undefined') {
 		
-		HappySheet.prototype.help = function () {
+		HappySheep.prototype.help = function () {
 			if(this.lover) {
-
 				console.log('I\'m coming, sweet heart!');
+				var self = this;
+				poll();
 
-				this.x = parseInt(this.lover.x) + 100 + 'px';
-				this.y = parseInt(this.lover.y) + 10 + 'px';
+				function poll(){
+					var targetX = parseInt(self.lover.x) + 100;
+					var targetY = parseInt(self.lover.y) + 10;
+					console.log('I\'m here: (' + self.x + ', ' + self.y + ') now, and the target is (' + targetX + ', ' + targetY + ').');
 
+					if(parseInt(self.x) !== targetX || 
+							parseInt(self.y) !== targetY) {
+						updateXY(targetX, targetY);
+						setTimeout(poll, 100);
+					}
+				}
+
+				function updateXY(targetX, targetY) {
+					var x = parseInt(self.x);
+					var y = parseInt(self.y);
+
+					if(x - targetX < -50) {
+						x += 10;
+					} else if(x - targetX < 0) {
+						x += 1;
+					} else if ( x - targetX > 50) {
+						x -= 10;
+					}
+					else if (x - targetX > 0) {
+						x -= 1;
+					}
+
+					if(y - targetY < -50) {
+						y += 10;
+					}else if(y - targetY < 0) {
+						y += 1;
+					} else if (y - targetY > 50) {
+						y -= 10;
+					} else if (y - targetY > 0) {
+						y -= 1;
+					}
+
+					self.x = x + 'px';
+					self.y = y + 'px';
+				}
 			}
 		};
 
-		HappySheet.__initialized__ = true;
+		HappySheep.__initialized__ = true;
 	}
 
 	return this;
-}
+};
+
+var Pot = function(x, y) {
+	this.x = x;
+	this.y = y;
+};
 
 /**
   * View
@@ -163,11 +231,13 @@ var NaiveGreenPlainView = function (model) {
 		NaiveGreenPlainView.prototype.output = function () {
 			var data = 
 				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;" model="model">' +
-				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;">' +
+				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;" onclick="naiveMVC.model.wolf.laugh(\'Ha Haa Haaaaa!\'); naiveMVC.model.wolf.putToPot(naiveMVC.model.beautySheep, naiveMVC.model.pot)">' +
 				'</div>' +
-				'<div class="beauty-sheet" style="left: <%= beautySheet.x %>; top: <%= beautySheet.y %>;" onclick="naiveMVC.model.beautySheet.call(\'Help!!!\')">' +
+				'<div class="beauty-sheep" style="left: <%= beautySheep.x %>; top: <%= beautySheep.y %>;" onclick="naiveMVC.model.beautySheep.call(\'Help!!!\')">' +
 				'</div>' + 
-				'<div class="happy-sheet" style="left: <%= happySheet.x %>; top: <%= happySheet.y %>;">' +
+				'<div class="happy-sheep" style="left: <%= happySheep.x %>; top: <%= happySheep.y %>;">' +
+				'</div>' +
+				'<div class="pot" style="left: <%= pot.x %>; top: <%= pot.y %>;">' +
 				'</div>' +
 				'</div>';
 			var instance = this;
@@ -199,15 +269,18 @@ var GreenPlainController = function () {
 
 	if(typeof GreenPlainController.__initialized__ === 'undefined') {
 		GreenPlainController.prototype.loadView = function () {
-			var greyWolf = new GreyWolf('200px', '150px');
-			var happy = new HappySheet('10000px', '10000px');
-			var beauty = new BeautySheet('300px', '155px', happy);
+			var greyWolf = new GreyWolf('500px', '450px');
+			var happy = new HappySheep('-100px', '-100px');
+			var beauty = new BeautySheep('600px', '500px', happy);
+			var pot = new Pot('350px', '450px');
 			
-			var model = new GreenPlainModel('800px', '600px');
+			var model = new GreenPlainModel('1000px', '700px');
 
 			model.wolf = greyWolf;
-			model.beautySheet = beauty;
-			model.happySheet = happy;
+			model.beautySheep = beauty;
+			model.happySheep = happy;
+			model.pot = pot;
+
 			var view = new NaiveGreenPlainView(model);
 			view.render();
 
@@ -216,9 +289,19 @@ var GreenPlainController = function () {
 
 
 			// watch model's state and update view if needed
-			var current = JSON.stringify({x: happy.x, y: happy.y});
+			function modelStatus() {
+				var s = JSON.stringify({
+					happySheep:{x: happy.x, y: happy.y}, 
+					beautySheep: {x: beauty.x, y: beauty.y}
+				});
+
+				return s;
+			}
+
+			var current = modelStatus(); 
+
 			function watchModel() {
-				var latest = JSON.stringify({x: happy.x, y: happy.y});
+				var latest = modelStatus();
 
 				if(latest !== current) {
 					current = latest;
@@ -227,7 +310,7 @@ var GreenPlainController = function () {
 					view.render();
 				}
 			}	
-			setInterval(watchModel, 500);
+			setInterval(watchModel, 100);
 		};
 
 		
