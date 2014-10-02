@@ -264,13 +264,10 @@ var NaiveGreenPlainView = function (model) {
 	return this;
 };
 
-
-
 /**
   * Controller
   */
 var GreenPlainController = function () {
-
 
 	if(typeof GreenPlainController.__initialized__ === 'undefined') {
 		GreenPlainController.prototype.loadView = function () {
@@ -290,8 +287,6 @@ var GreenPlainController = function () {
 			view.render();
 
 			naiveMVC.model = model;
-			naiveMVC.view = view;
-
 
 			// watch model's state and update view if needed
 			function modelStatus() {
