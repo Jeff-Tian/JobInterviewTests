@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Haapy Sheep and Grey Wolf</title>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+;(function(exports) {
+
+/* =========================================================================
+   A naive MVC 
+   ========================================================================= */
+
+/**
+  * Model
+  */
+var GreenPlainModel = function (width, height) {
+	this.width = width;
+	this.height = height;
+
+	return this;
+};
+
+
+/**
+  * View
+  */
+var NaiveGreenPlainView = function (model) {
+	this.model = model;
+
+	if(typeof NaiveGreenPlainView.__initialized__ === 'undefined') {
+		NaiveGreenPlainView.prototype.output = function () {
+			var data = '<div style="width: <%= width %>; height: <%= height %>; background-color: green;"></div>';
+			var instance = this;
+
+			return data.replace(/<%=\s+(.*?)\s+%>/g, function (match, group1) {
+					return instance.model[group1];
+					});
+		};
+
+		NaiveGreenPlainView.prototype.render = function () {
+			document.getElementById('output').innerHTML = this.output();
+		};
+
+		this.__initialized__ = true;
+	}
+
+	return this;
+};
+
+
+/**
+  * Controller
+  */
+var GreenPlainController = function () {
+
+
+	if(typeof GreenPlainController.__initialized__ === 'undefined') {
+		GreenPlainController.prototype.loadView = function () {
+			var model = new GreenPlainModel('800px', '600px');
+			var view = new NaiveGreenPlainView(model);
+			view.render();
+		};
+
+		GreenPlainController.__initialized__ = true;
+	}
+
+	return this;
+};
+
+exports.GreenPlainController = GreenPlainController;
+})(this);
+</script>
+
+</head>
+<body>
+<div id="output">
+</div>
+<script type="text/javascript">
+;(function(exports, GreenPlainController) {
+	function bootstrapper() {
+		var controller = new GreenPlainController();
+		controller.loadView();
+	}
+
+	bootstrapper();
+})(this, this['GreenPlainController']);
+</script>
+</body>
+</html>
+
