@@ -30,13 +30,39 @@
 	vertical-align: middle;
 }
 
-.happy-sheet {
+.beauty-sheet {
 	background-color: white;
 	position: absolute;
 	width: 80px;
 	height: 80px;
 	border-radius: 40%;
-	border: solid 5px black;
+	border: solid 6px red;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.beauty-sheet:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.beauty-sheet:after {
+	content: '(*^.^*)';
+	font-family: Arial;
+	margin: auto;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.happy-sheet {
+	background-color: #eee;
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	border-radius: 30%;
+	border: solid 10px black;
 	vertical-align: middle;
 	text-align: center;
 	transform: rotate(90deg);
@@ -56,6 +82,7 @@
 	font-weight: bold;
 	vertical-align: middle;
 }
+}
 </style>
 <script type="text/javascript">
 ;(function(exports) {
@@ -63,6 +90,8 @@
 /* =========================================================================
    A naive MVC 
    ========================================================================= */
+
+var naiveMVC = {};
 
 /**
   * Model
@@ -81,14 +110,41 @@ var GreyWolf = function (x, y) {
 	return this;
 };
 
-var HappySheet = function (x, y) {
+var BeautySheet = function (x, y, lover) {
+	this.x = x;
+	this.y = y;
+	this.lover = lover;
+	lover.lover = this;
+
+	if(typeof BeautySheet.__initialized__ === 'undefined') {
+
+		BeautySheet.prototype.call = function (message) {
+			console.log('Help please!!!');			
+			alert(message);
+			lover.help();
+		};
+
+		BeautySheet.__initialized__ = true;
+	}
+
+	return this;
+}
+
+var HappySheet = function(x, y) {
 	this.x = x;
 	this.y = y;
 
 	if(typeof HappySheet.__initialized__ === 'undefined') {
+		
+		HappySheet.prototype.help = function () {
+			if(this.lover) {
 
-		HappySheet.prototype.call = function (message) {
-			alert(message);
+				console.log('I\'m coming, sweet heart!');
+
+				this.x = parseInt(this.lover.x) + 100 + 'px';
+				this.y = parseInt(this.lover.y) + 10 + 'px';
+
+			}
 		};
 
 		HappySheet.__initialized__ = true;
@@ -96,8 +152,6 @@ var HappySheet = function (x, y) {
 
 	return this;
 }
-
-exports.HappySheet = HappySheet;
 
 /**
   * View
@@ -111,7 +165,10 @@ var NaiveGreenPlainView = function (model) {
 				'<div class="green-plain" style="width: <%= width %>; height: <%= height %>; background-color: green;" model="model">' +
 				'<div class="grey-wolf" style="left: <%= wolf.x %>; top: <%= wolf.y %>;">' +
 				'</div>' +
-				'<div class="happy-sheet" style="left: <%= sheet.x %>; top: <%= sheet.y %>;" onclick="naiveMVC.model.sheet.call(\'Help!!!\')">' +
+				'<div class="beauty-sheet" style="left: <%= beautySheet.x %>; top: <%= beautySheet.y %>;" onclick="naiveMVC.model.beautySheet.call(\'Help!!!\')">' +
+				'</div>' + 
+				'<div class="happy-sheet" style="left: <%= happySheet.x %>; top: <%= happySheet.y %>;">' +
+				'</div>' +
 				'</div>';
 			var instance = this;
 
@@ -133,7 +190,6 @@ var NaiveGreenPlainView = function (model) {
 };
 
 
-var naiveMVC = {};
 
 /**
   * Controller
@@ -144,16 +200,37 @@ var GreenPlainController = function () {
 	if(typeof GreenPlainController.__initialized__ === 'undefined') {
 		GreenPlainController.prototype.loadView = function () {
 			var greyWolf = new GreyWolf('200px', '150px');
-			var happySheet = new HappySheet('300px', '155px');
+			var happy = new HappySheet('10000px', '10000px');
+			var beauty = new BeautySheet('300px', '155px', happy);
+			
 			var model = new GreenPlainModel('800px', '600px');
+
 			model.wolf = greyWolf;
-			model.sheet = happySheet;
+			model.beautySheet = beauty;
+			model.happySheet = happy;
 			var view = new NaiveGreenPlainView(model);
 			view.render();
 
 			naiveMVC.model = model;
+			naiveMVC.view = view;
+
+
+			// watch model's state and update view if needed
+			var current = JSON.stringify({x: happy.x, y: happy.y});
+			function watchModel() {
+				var latest = JSON.stringify({x: happy.x, y: happy.y});
+
+				if(latest !== current) {
+					current = latest;
+					console.log('model changed!');
+
+					view.render();
+				}
+			}	
+			setInterval(watchModel, 500);
 		};
 
+		
 		GreenPlainController.__initialized__ = true;
 	}
 
