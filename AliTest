@@ -1,0 +1,83 @@
+let sortQueue = [];
+
+function quickSortArray(a) {
+    sortQueue.push({
+        array: a,
+        left: 0,
+        right: a.length - 1
+    });
+
+    while (sortQueue.length) {
+        let task = sortQueue.shift();
+
+        quickSort(task.array, task.left, task.right);
+    }
+}
+
+function quickSort(a, left = 0, right = a.length - 1) {
+    let i = left, j = right;
+    let centerValue = a[Math.floor((left + right) / 2)];
+
+    while (i <= j) {
+        while (a[i] < centerValue) {
+            i++;
+        }
+
+        while (a[j] > centerValue) {
+            j--;
+        }
+
+        if (i <= j) {
+            let temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+
+            i++;
+            j--;
+        }
+    }
+
+    if (left < j) {
+        // quickSort(a, left, j);
+        sortQueue.push({
+            array: a,
+            left: left,
+            right: j
+        });
+    }
+
+    if (i < right) {
+        // quickSort(a, i, right);
+        sortQueue.push({
+            array: a,
+            left: i,
+            right: right
+        });
+    }
+}
+
+
+describe('quicksort array', () => {
+    test('should sort array in non-iterative way', () => {
+        let a = [1, 2, 5, 3, 1, 0, -9];
+        quickSortArray(a);
+        expect(sortQueue).toEqual([]);
+        expect(a).toEqual([-9, 0, 1, 1, 2, 3, 5]);
+
+        a = [];
+        quickSortArray(a);
+        expect(a).toEqual([]);
+
+        a = [1];
+        quickSortArray(a);
+        expect(a).toEqual([1]);
+
+        a = [2, 1];
+        quickSortArray(a);
+        expect(a).toEqual([1, 2]);
+
+        a = [3, 2, 1];
+        quickSortArray(a);
+        expect(a).toEqual([1, 2, 3]);
+    });
+});
