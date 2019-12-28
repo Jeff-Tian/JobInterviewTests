@@ -1,30 +1,20 @@
 import { checkInclusion, equals, getAmount } from '../src/checkInclusion';
-
-const testIt = (func?: Function) => (
-  expectedResult:
-    | boolean
-    | string
-    | string[]
-    | Set<string>
-    | number
-    | { [key: string]: number },
-  ...args: (string | number | any)[]
-) =>
-  it(args.join(' ') + '--> ' + expectedResult, () => {
-    let actual = (func || checkInclusion).apply(null, args);
-    expect(actual).toEqual(expectedResult);
-  });
+import { testIt } from './helper';
 
 describe('字符串的排列', () => {
-  testIt()(true, 'ab', 'eidbaooo');
-  testIt()(false, 'ab', 'eidboaoo');
-  testIt()(true, 'ab', 'ab');
-  testIt()(true, 'a', 'a');
-  testIt()(true, '', '');
-  testIt()(false, 'ab', '');
-  testIt()(true, 'adc', 'dcda');
-  testIt()(true, 'abc', 'cccccbabbbaaaa');
-  testIt()(false, 'dinitrophenylhydrazine', 'acetylphenylhydrazine');
+  testIt(checkInclusion)(true, 'ab', 'eidbaooo');
+  testIt(checkInclusion)(false, 'ab', 'eidboaoo');
+  testIt(checkInclusion)(true, 'ab', 'ab');
+  testIt(checkInclusion)(true, 'a', 'a');
+  testIt(checkInclusion)(true, '', '');
+  testIt(checkInclusion)(false, 'ab', '');
+  testIt(checkInclusion)(true, 'adc', 'dcda');
+  testIt(checkInclusion)(true, 'abc', 'cccccbabbbaaaa');
+  testIt(checkInclusion)(
+    false,
+    'dinitrophenylhydrazine',
+    'acetylphenylhydrazine'
+  );
 });
 
 describe('get Amount', () => {
