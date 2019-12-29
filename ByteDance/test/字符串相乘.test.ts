@@ -2,7 +2,6 @@ import { testIt } from './helper';
 import {
   getValue,
   multiply,
-  multiplyWith,
   padLeft,
   singlify,
   stringNumberAdd,
@@ -16,6 +15,8 @@ describe('相乘', () => {
   testIt(multiply)('15', '5', '3');
   testIt(multiply)('56088', '123', '456');
   testIt(multiply)('121932631112635269', '123456789', '987654321');
+  testIt(multiply)('419254329864656431168468', '498828660196', '840477629533');
+  testIt(multiply)('0', '0', '0');
 });
 
 describe('getValue', () => {
@@ -33,15 +34,7 @@ describe('singlify', () => {
   testIt(singlify)([9, 0, 0], 900);
 });
 
-describe('multiplyWith', () => {
-  testIt(multiplyWith)('18', ['3'], ['6']);
-  testIt(multiplyWith)((6 * 10 + 18).toString(), ['1', '3'], ['6']);
-  testIt(multiplyWith)('288', ['3'], ['9', '6']);
-  testIt(multiplyWith)('960', ['1', '0'], ['9', '6']);
-  testIt(multiplyWith)('1248', ['1', '3'], ['9', '6']);
-});
-
-describe.skip('stringNumberAdd', () => {
+describe('stringNumberAdd', () => {
   testIt(stringNumberAdd)('2', '1', '1');
   testIt(stringNumberAdd)('9', '4', '5');
   testIt(stringNumberAdd)('10', '5', '5');

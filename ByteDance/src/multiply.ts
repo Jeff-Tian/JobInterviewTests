@@ -1,14 +1,11 @@
-export function multiplyWith(a1: string[], a2: string[]) {
+export function multiply(a1: string, a2: string) {
   const a = [];
 
   for (let i = a1.length - 1; i >= 0; i--) {
     for (let j = a2.length - 1; j >= 0; j--) {
       const ij = getValue(a1[i]) * getValue(a2[j]);
 
-      let tens = Math.pow(
-        10,
-        Math.abs(a1.length - (i + 1) + (a2.length - (j + 1)))
-      );
+      let tens = Math.pow(10, Math.abs(a1.length + a2.length - i - j - 2));
 
       a.push(toString(ij * tens));
     }
@@ -16,13 +13,6 @@ export function multiplyWith(a1: string[], a2: string[]) {
 
   return stringNumbersAdd(a);
 }
-
-export const multiply = (s1: string, s2: string) => {
-  const a1 = s1.split('');
-  const a2 = s2.split('');
-
-  return multiplyWith(a1, a2);
-};
 
 const zero = '0'.charCodeAt(0);
 
@@ -52,35 +42,26 @@ export const singlify = (v: number) => {
 };
 
 export const stringNumberAdd = (s1: string, s2: string): string => {
-  let finalNumber = Math.max(s1.length, s2.length) + 1;
-  const res = new Array(finalNumber).fill(0);
-  const padded1 = padLeft(s1, finalNumber);
-  const padded2 = padLeft(s2, finalNumber);
+  let finalLength = Math.max(s1.length, s2.length) + 1;
+  const res = new Array(finalLength).fill(0);
+  const padded1 = padLeft(s1, finalLength);
+  const padded2 = padLeft(s2, finalLength);
 
-  for (let i = finalNumber - 1; i >= 0; i--) {
-    let v = getValue(padded1[i]) + getValue(padded2[i]);
+  let flag = 0;
 
-    if (v === 0) {
-      continue;
-    }
+  for (let i = finalLength - 1; i > 0; i--) {
+    let v = flag + getValue(padded1[i]) + getValue(padded2[i]);
 
     if (v < 10) {
-      let newVar = res[i] + v;
-      if (res[i]) {
-        if (newVar < 10) {
-          res[i] = newVar;
-        } else {
-          res[i] = toString(newVar)[1];
-          res[i - 1] = res[i - 1] + getValue(toString(newVar)[0]);
-        }
-      } else {
-        res[i] = v;
-      }
+      flag = 0;
+      res[i] = v;
     } else {
-      res[i] = res[i] + getValue(toString(v)[1]);
-      res[i - 1] = res[i - 1] + getValue(toString(v)[0]);
+      flag = 1;
+      res[i] = getValue(toString(v)[1]);
     }
   }
+
+  res[0] = flag;
 
   return unpadLeft(res.join(''));
 };
@@ -102,7 +83,5 @@ export const unpadLeft = (s: string) => {
 };
 
 export const stringNumbersAdd = (a: string[]) => {
-  return a.reduce((previousValue, currentValue) => {
-    return stringNumberAdd(previousValue, currentValue);
-  }, '0');
+  return a.reduce(stringNumberAdd, '0');
 };
