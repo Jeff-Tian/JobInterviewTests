@@ -7,6 +7,7 @@ describe('复原IP地址', () => {
     '25525511135'
   );
   testIt(restoreIpAddresses)(['255.255.111.254'], '255255111254');
+  testIt(restoreIpAddresses)(['0.1.0.100', '0.10.10.0', '0.101.0.0'], '010100');
   testIt(restoreIpAddresses)(
     ['255.255.11.254', '255.255.112.54'],
     '25525511254'
