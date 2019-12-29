@@ -10,6 +10,6 @@ export const testIt = (func: Function) => (
   ...args: (string | number | any)[]
 ) =>
   it(args.join(' ') + ' --> ' + expectedResult, () => {
-    let actual = func.apply(null, args);
+    let actual = func(...args);
     expect(actual).toEqual(expectedResult);
   });
