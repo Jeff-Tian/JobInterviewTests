@@ -3,11 +3,8 @@ import {
   getValue,
   multiply,
   padLeft,
-  singlify,
   stringNumberAdd,
   unpadLeft,
-  toString,
-  stringNumbersAdd,
 } from '../src/multiply';
 
 describe('相乘', () => {
@@ -17,21 +14,21 @@ describe('相乘', () => {
   testIt(multiply)('121932631112635269', '123456789', '987654321');
   testIt(multiply)('419254329864656431168468', '498828660196', '840477629533');
   testIt(multiply)('0', '0', '0');
+  testIt(multiply)(
+    '2361988447605003674312836',
+    '93553535314',
+    '25247452591474'
+  );
+  testIt(multiply)(
+    '109076106670961085913063703104432431270309088426528301147652985915447613550370181877081648097709240052913800575431944409211039276203393769302218273618687882381732249156832915',
+    '17713693108358378680072681827220994275895642679450569947042064076615194860248215',
+    '6157728148710697840711533037191926601417410571458451704108837221091155108177315170452863668581'
+  );
 });
 
 describe('getValue', () => {
   testIt(getValue)(6, '6');
   testIt(getValue)(3, '3');
-});
-
-describe('singlify', () => {
-  testIt(singlify)([1, 5], 15);
-  testIt(singlify)([1, 2, 5], 125);
-  testIt(singlify)([0], 0);
-  testIt(singlify)([9, 8, 1, 7, 6, 5], 981765);
-  testIt(singlify)([1, 0], 10);
-  testIt(singlify)([1, 8], 18);
-  testIt(singlify)([9, 0, 0], 900);
 });
 
 describe('stringNumberAdd', () => {
@@ -50,21 +47,12 @@ describe('stringNumberAdd', () => {
   testIt(stringNumberAdd)('8888890569', '8888888969', '1600');
   testIt(stringNumberAdd)('90569', '88969', '1600');
   testIt(stringNumberAdd)('0', '0', '0');
-});
-
-describe('stringNumbersAdd', () => {
-  testIt(stringNumbersAdd)('85269', [
-    '9',
-    '180',
-    '2700',
-    '36000',
-    '80',
-    '1600',
-    '24000',
-    '700',
-    '14000',
-    '6000',
-  ]);
+  testIt(stringNumberAdd)('353464336281836', '353464336280636', '1200');
+  testIt(stringNumberAdd)(
+    '100989810365896',
+    '20989810365896',
+    '80000000000000'
+  );
 });
 
 describe('padLeft', () => {
@@ -75,8 +63,4 @@ describe('unpadLeft', () => {
   testIt(unpadLeft)('1', '000001');
   testIt(unpadLeft)('1000', '000001000');
   testIt(unpadLeft)('0', '00000');
-});
-
-describe('toString', () => {
-  testIt(toString)('900', 900);
 });
