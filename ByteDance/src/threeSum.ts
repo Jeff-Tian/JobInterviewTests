@@ -1,35 +1,45 @@
-let findFrom = function (lessThanZeros: number[], greaterThanOrEqualToZeros: number[]) {
-    const res = [];
-
-    for (let i = 0; i < lessThanZeros.length; i++) {
-        for (let j = 0; j < greaterThanOrEqualToZeros.length - 1; j++) {
-            for (let k = j + 1; k < greaterThanOrEqualToZeros.length; k++) {
-                if (lessThanZeros[i] + greaterThanOrEqualToZeros[j] + greaterThanOrEqualToZeros[k] === 0) {
-                    let found = [lessThanZeros[i], greaterThanOrEqualToZeros[j], greaterThanOrEqualToZeros[k]].sort();
-
-                    res.push(found.join(','))
-                }
-            }
-        }
-    }
-
-    return res;
-};
-
 export const threeSum = (nums: number[]): Array<number[]> => {
-    let res: Array<string> = [];
+  let res: Array<number[]> = [];
 
-    const sorted = nums.sort()
-    const lessThanZeros = sorted.filter(n => n < 0);
-    const greaterThanOrEqualToZeros = sorted.filter(n => n >= 0);
-    const equalToZeros = sorted.filter(n => n === 0);
+  const sorted = nums.sort((x: number, y: number) => x - y);
+  if (sorted[0] === 0 && sorted[nums.length - 1] === 0) {
+    if (sorted.length >= 3) {
+      return [[0, 0, 0]];
+    } else {
+      return [];
+    }
+  }
 
-    res = [...res, ...findFrom(lessThanZeros, greaterThanOrEqualToZeros)];
-    res = [...res, ...findFrom(greaterThanOrEqualToZeros, lessThanZeros)];
+  for (let i = 1; i < sorted.length - 1; i++) {
+    let left = 0;
+    let right = sorted.length - 1;
 
-    if (equalToZeros.length >= 3) {
-        res.push([0, 0, 0].join(','))
+    if (sorted[left] * sorted[right] >= 0) {
+      break;
     }
 
-    return Array.from(new Set(res)).map(i => i.split(',').map(i => Number(i)));
-}
+    do {
+      const sum = sorted[left] + sorted[i] + sorted[right];
+
+      if (sum === 0) {
+        res.push([sorted[left], sorted[i], sorted[right]]);
+        left++;
+        right--;
+      }
+
+      if (sum < 0) {
+        left++;
+      }
+
+      if (sum > 0) {
+        right--;
+      }
+    } while (left < i && i < right);
+  }
+
+  return Array.from(new Set(res.map(r => r.join(',')))).map(s =>
+    s.split(',').map(r => Number(r))
+  );
+
+  // return res.reverse();
+};

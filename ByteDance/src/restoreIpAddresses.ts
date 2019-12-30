@@ -29,14 +29,18 @@ export default class PossibleIP {
   }
 
   public isValid() {
-    const noLeftPaddedZeros = (v: string) => !(v.startsWith('0') && v.length > 1)
+    const noLeftPaddedZeros = (v: string) =>
+      !(v.startsWith('0') && v.length > 1);
 
     return (
       Number(this.value[0]) <= 255 &&
       Number(this.value[1]) <= 255 &&
       Number(this.value[2]) <= 255 &&
       Number(this.value[3]) <= 255 &&
-      noLeftPaddedZeros(this.value[0]) && noLeftPaddedZeros(this.value[1]) && noLeftPaddedZeros(this.value[2]) && noLeftPaddedZeros(this.value[3])
+      noLeftPaddedZeros(this.value[0]) &&
+      noLeftPaddedZeros(this.value[1]) &&
+      noLeftPaddedZeros(this.value[2]) &&
+      noLeftPaddedZeros(this.value[3])
     );
   }
 }

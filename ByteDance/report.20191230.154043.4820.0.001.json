@@ -1,0 +1,416 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20191230.154043.4820.0.001.json",
+    "dumpEventTime": "2019-12-30T15:40:43Z",
+    "dumpEventTimeStamp": "1577691643887",
+    "processId": 4820,
+    "cwd": "C:\\Users\\Jeff\\JobInterviewTests\\ByteDance",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Jeff\\JobInterviewTests\\ByteDance\\node_modules\\jest-worker\\build\\workers\\processChild.js"
+    ],
+    "nodejsVersion": "v12.6.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.6.0",
+      "v8": "7.5.288.22-node.14",
+      "uv": "1.30.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.38.0",
+      "napi": "4",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.6.0/node-v12.6.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.6.0/node-v12.6.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.6.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18362",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz",
+        "speed": 2808,
+        "user": 1114703,
+        "nice": 0,
+        "sys": 1219796,
+        "idle": 1929453,
+        "irq": 80015
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz",
+        "speed": 2808,
+        "user": 1114703,
+        "nice": 0,
+        "sys": 1219796,
+        "idle": 1929453,
+        "irq": 80015
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz",
+        "speed": 2808,
+        "user": 1114703,
+        "nice": 0,
+        "sys": 1219796,
+        "idle": 1929453,
+        "irq": 80015
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz",
+        "speed": 2808,
+        "user": 1114703,
+        "nice": 0,
+        "sys": 1219796,
+        "idle": 1929453,
+        "irq": 80015
+      }
+    ],
+    "host": "Jeff-Surface-Pro"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff7b7646db9",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10889"
+    },
+    {
+      "pc": "0x00007ff7b764a72c",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+25596"
+    },
+    {
+      "pc": "0x00007ff7b76496d8",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+21416"
+    },
+    {
+      "pc": "0x00007ff7b773300b",
+      "symbol": "v8::base::CPU::has_sse+37675"
+    },
+    {
+      "pc": "0x00007ff7b7f18a1e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff7b7f00d6a",
+      "symbol": "v8::SharedArrayBuffer::Externalize+842"
+    },
+    {
+      "pc": "0x00007ff7b7d9256c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff7b7d9a48f",
+      "symbol": "v8::internal::Heap::OldGenerationSizeOfObjects+4879"
+    },
+    {
+      "pc": "0x00007ff7b7d90733",
+      "symbol": "v8::internal::Heap::CollectGarbage+1235"
+    },
+    {
+      "pc": "0x00007ff7b7d8efc4",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2292"
+    },
+    {
+      "pc": "0x00007ff7b7dadaa5",
+      "symbol": "v8::internal::Factory::NewFillerObject+53"
+    },
+    {
+      "pc": "0x00007ff7b7b63cc3",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+3427"
+    },
+    {
+      "pc": "0x00007ff7b7fc170d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+614605"
+    },
+    {
+      "pc": "0x0000006cc7faf563",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2145828864,
+    "totalCommittedMemory": 2145828864,
+    "usedMemory": 2137056648,
+    "availableMemory": 54676240,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261832,
+        "used": 31960,
+        "available": 229872
+      },
+      "new_space": {
+        "memorySize": 2097152,
+        "committedMemory": 2097152,
+        "capacity": 1047328,
+        "used": 0,
+        "available": 1047328
+      },
+      "old_space": {
+        "memorySize": 1852977152,
+        "committedMemory": 1852977152,
+        "capacity": 1847751976,
+        "used": 1847751976,
+        "available": 0
+      },
+      "code_space": {
+        "memorySize": 1212416,
+        "committedMemory": 1212416,
+        "capacity": 1150976,
+        "used": 785696,
+        "available": 365280
+      },
+      "map_space": {
+        "memorySize": 2101248,
+        "committedMemory": 2101248,
+        "capacity": 1382080,
+        "used": 1382080,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 287129600,
+        "committedMemory": 287129600,
+        "capacity": 287101480,
+        "used": 287101480,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 3456,
+        "used": 3456,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047328,
+        "used": 0,
+        "available": 1047328
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 68.546,
+    "kernelCpuSeconds": 6.093,
+    "cpuConsumptionPercent": 201.727,
+    "maxRss": 2410876928,
+    "pageFaults": {
+      "IORequired": 998243,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 2450,
+      "writes": 113
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\Jeff\\AppData\\Roaming",
+    "BABEL_ENV": "test",
+    "CCHZPATH": "C:\\CTEX\\CTeX;C:\\CTEX\\CTeX\\Packages\\cct\\fonts",
+    "CCPKPATH": "C:\\CTEX\\CTeX;C:\\CTEX\\CTeX\\Packages\\fonts\\pk\\modeless\\cct\\dpi$d",
+    "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
+    "ChocolateyLastPathUpdate": "132128473651953199",
+    "ChocolateyToolsLocation": "C:\\tools",
+    "CLINK_DIR": "C:\\Program Files (x86)\\clink\\0.4.9",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "JEFF-SURFACE-PR",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "FORCE_COLOR": "1",
+    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Jeff",
+    "INIT_CWD": "C:\\Users\\Jeff\\JobInterviewTests\\ByteDance",
+    "IOJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/iojs",
+    "JEST_WORKER_ID": "1",
+    "LOCALAPPDATA": "C:\\Users\\Jeff\\AppData\\Local",
+    "LOGONSERVER": "\\\\JEFF-SURFACE-PR",
+    "NODE": "C:\\Program Files\\nodejs\\node.exe",
+    "NODEJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/node",
+    "NODE_ENV": "test",
+    "NODIST_IOJS_MIRROR": "https://npm.taobao.org/mirrors/iojs",
+    "NODIST_NODE_MIRROR": "https://npm.taobao.org/mirrors/node",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"test\"],\"original\":[\"test\"]}",
+    "npm_config_bin_links": "true",
+    "npm_config_chromedriver_cdnurl": "https://npm.taobao.org/mirrors/chromedriver",
+    "npm_config_couchbase_binary_host_mirror": "https://npm.taobao.org/mirrors/couchbase/v{version}",
+    "npm_config_debug_binary_host_mirror": "https://npm.taobao.org/mirrors/node-inspector",
+    "npm_config_disturl": "https://npm.taobao.org/dist",
+    "npm_config_electron_mirror": "https://npm.taobao.org/mirrors/electron/",
+    "npm_config_flow_bin_binary_host_mirror": "https://npm.taobao.org/mirrors/flow/v",
+    "npm_config_fse_binary_host_mirror": "https://npm.taobao.org/mirrors/fsevents",
+    "npm_config_fuse_bindings_binary_host_mirror": "https://npm.taobao.org/mirrors/fuse-bindings/v{version}",
+    "npm_config_git4win_mirror": "https://npm.taobao.org/mirrors/git-for-windows",
+    "npm_config_gl_binary_host_mirror": "https://npm.taobao.org/mirrors/gl/v{version}",
+    "npm_config_grpc_node_binary_host_mirror": "https://npm.taobao.org/mirrors",
+    "npm_config_hackrf_binary_host_mirror": "https://npm.taobao.org/mirrors/hackrf/v{version}",
+    "npm_config_ignore_optional": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_init_license": "MIT",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_leveldown_binary_host_mirror": "https://npm.taobao.org/mirrors/leveldown/v{version}",
+    "npm_config_leveldown_hyper_binary_host_mirror": "https://npm.taobao.org/mirrors/leveldown-hyper/v{version}",
+    "npm_config_mknod_binary_host_mirror": "https://npm.taobao.org/mirrors/mknod/v{version}",
+    "npm_config_nodegit_binary_host_mirror": "https://npm.taobao.org/mirrors/nodegit/v{version}/",
+    "npm_config_node_sqlite3_binary_host_mirror": "https://npm.taobao.org/mirrors",
+    "npm_config_node_tk5_binary_host_mirror": "https://npm.taobao.org/mirrors/node-tk5/v{version}",
+    "npm_config_operadriver_cdnurl": "https://npm.taobao.org/mirrors/operadriver",
+    "npm_config_phantomjs_cdnurl": "https://npm.taobao.org/mirrors/phantomjs",
+    "npm_config_profiler_binary_host_mirror": "https://npm.taobao.org/mirrors/node-inspector/",
+    "npm_config_puppeteer_download_host": "https://npm.taobao.org/mirrors",
+    "npm_config_python": "python2.7",
+    "npm_config_python_mirror": "https://npm.taobao.org/mirrors/python",
+    "npm_config_rabin_binary_host_mirror": "https://npm.taobao.org/mirrors/rabin/v{version}",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "npm_config_sass_binary_site": "https://npm.taobao.org/mirrors/node-sass",
+    "npm_config_save_prefix": "^",
+    "npm_config_sodium_prebuilt_binary_host_mirror": "https://npm.taobao.org/mirrors/sodium-prebuilt/v{version}",
+    "npm_config_sqlite3_binary_site": "https://npm.taobao.org/mirrors/sqlite3",
+    "npm_config_strict_ssl": "true",
+    "npm_config_user_agent": "yarn/1.19.1 npm/? node/v12.6.0 win32 x64",
+    "npm_config_utf_8_validate_binary_host_mirror": "https://npm.taobao.org/mirrors/utf-8-validate/v{version}",
+    "npm_config_utp_native_binary_host_mirror": "https://npm.taobao.org/mirrors/utp-native/v{version}",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_version_git_message": "v%s",
+    "npm_config_version_git_sign": "",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_tag_prefix": "v",
+    "npm_config_zmq_prebuilt_binary_host_mirror": "https://npm.taobao.org/mirrors/zmq-prebuilt/v{version}",
+    "npm_execpath": "C:\\Users\\Jeff\\AppData\\Roaming\\npm\\node_modules\\yarn\\bin\\yarn.js",
+    "npm_lifecycle_event": "test",
+    "npm_lifecycle_script": "tsdx test",
+    "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_package_author_name": "Jeff Tian",
+    "npm_package_description": "This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).",
+    "npm_package_devDependencies_husky": "^3.1.0",
+    "npm_package_devDependencies_tsdx": "^0.12.0",
+    "npm_package_devDependencies_tslib": "^1.10.0",
+    "npm_package_devDependencies_typescript": "^3.7.4",
+    "npm_package_devDependencies__types_jest": "^24.0.25",
+    "npm_package_files_0": "dist",
+    "npm_package_husky_hooks_pre_commit": "tsdx lint --fix",
+    "npm_package_license": "MIT",
+    "npm_package_main": "dist/index.js",
+    "npm_package_module": "dist/bytedance.esm.js",
+    "npm_package_name": "bytedance",
+    "npm_package_prettier_printWidth": "80",
+    "npm_package_prettier_semi": "true",
+    "npm_package_prettier_singleQuote": "true",
+    "npm_package_prettier_trailingComma": "es5",
+    "npm_package_readmeFilename": "README.md",
+    "npm_package_scripts_build": "tsdx build",
+    "npm_package_scripts_lint": "tsdx lint",
+    "npm_package_scripts_prepare": "tsdx build",
+    "npm_package_scripts_start": "tsdx watch",
+    "npm_package_scripts_test": "tsdx test",
+    "npm_package_typings": "dist/index.d.ts",
+    "npm_package_version": "0.1.0",
+    "NUMBER_OF_PROCESSORS": "4",
+    "NVMW_IOJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/iojs",
+    "NVMW_NODEJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/node",
+    "NVMW_NPM_MIRROR": "https://npm.taobao.org/mirrors/npm",
+    "NVM_IOJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/iojs",
+    "NVM_NODEJS_ORG_MIRROR": "https://npm.taobao.org/mirrors/node",
+    "OneDrive": "C:\\Users\\Jeff\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\Jeff\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Users\\Jeff\\AppData\\Local\\Temp\\yarn--1577690086213-0.29423722559110654;C:\\Users\\Jeff\\JobInterviewTests\\ByteDance\\node_modules\\.bin;C:\\Users\\Jeff\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;C:\\Users\\Jeff\\AppData\\Local\\Yarn\\bin;C:\\Program Files\\libexec\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\node-gyp-bin;C:\\tools\\ruby26\\bin;C:\\ProgramData\\DockerDesktop\\version-bin;C:\\Program Files\\Docker\\Docker\\Resources\\bin;C:\\texlive\\2019\\bin\\win32;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\CTEX\\UserData\\miktex\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\x64\\;C:\\CTEX\\MiKTeX\\miktex\\bin;C:\\CTEX\\CTeX;C:\\CTEX\\CTeX\\Packages\\ctex\\bin;C:\\CTEX\\CTeX\\Packages\\cct\\bin;C:\\CTEX\\CTeX\\Packages\\ty\\bin;C:\\CTEX\\Ghostscript\\gs9.18\\bin;C:\\CTEX\\GSview\\gsview;C:\\CTEX\\WinEdt;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Graphviz2.39\\bin;C:\\Users\\Jeff\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\Jeff\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\Jeff\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Jeff\\AppData\\Roaming\\npm;C:\\tools\\Cmder;;C:\\Users\\Jeff\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\heroku\\bin;C:\\tools\\mysql\\current\\bin;;C:\\Users\\Jeff\\AppData\\Local\\Programs\\Fiddler",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.RB;.RBW",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "4e03",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "C\bL\bI\bN\bK\b \b$P$G",
+    "PSModulePath": "C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "SESSIONNAME": "Console",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\Jeff\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\Jeff\\AppData\\Local\\Temp",
+    "USERDOMAIN": "JEFF-SURFACE-PR",
+    "USERDOMAIN_ROAMINGPROFILE": "JEFF-SURFACE-PR",
+    "USERNAME": "Jeff",
+    "USERPROFILE": "C:\\Users\\Jeff",
+    "windir": "C:\\WINDOWS",
+    "YARN_WRAP_OUTPUT": "false"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\System32\\UMPDC.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll"
+  ]
+}

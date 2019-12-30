@@ -1,4 +1,6 @@
-export const testIt = (func: Function) => (expectedResult: | boolean
+export const testIt = (func: Function) => (
+  expectedResult:
+    | boolean
     | string
     | string[]
     | Set<string>
@@ -6,8 +8,9 @@ export const testIt = (func: Function) => (expectedResult: | boolean
     | number[]
     | { [key: string]: number }
     | number[][],
-                                           ...args: (string | number | any)[]) =>
-    it(args.join(' ') + ' --> ' + expectedResult, () => {
-        let actual = func(...args);
-        expect(actual).toEqual(expectedResult);
-    });
+  ...args: (string | number | any)[]
+) =>
+  it(args.join(' ') + ' --> ' + expectedResult, () => {
+    let actual = func(...args);
+    expect(actual).toEqual(expectedResult);
+  });
