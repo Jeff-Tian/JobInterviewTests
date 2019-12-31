@@ -13,11 +13,9 @@ export const checkInclusion = (s1: string, s2: string) => {
 };
 
 export const getAmount = (s: string) =>
-  s.split('').reduce((previousValue: any, currentValue) => {
-    previousValue[currentValue] = previousValue[currentValue]
-      ? previousValue[currentValue] + 1
-      : 1;
-    return previousValue;
+  s.split('').reduce((prev: any, next) => {
+    prev[next] = -~prev[next];
+    return prev;
   }, {});
 
 export const equals = (o1: any, o2: any) => {
