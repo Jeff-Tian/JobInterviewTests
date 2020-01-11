@@ -1,21 +1,26 @@
 type Mapper = (i: any) => any;
 
-const map = (func: Mapper) => (...target: any[]) => target.map(func);
+const op = (method: string) => (arg1: any) => (arg2: any) => arg2[method](arg1);
+const map = op('map');
+const join = op('join');
+const charCodeAt = op('charCodeAt');
+
 const compose = (f: Function, g: Function) => (...x: any) => f(g(...x));
+const curry = (fun: Function) => (arg1: any) => (arg2: any) => fun(arg1, arg2);
+
+const arrayify = (...x: any[]) => x;
 
 const by = (what: Function) => (mapper: Mapper) => compose(what, map(mapper));
 
 const subtract = ([a, b]: number[]) => a - b;
 const equal = ([a, b]: string[]) => a === b;
 
-const charCodeAt = (i: number) => (s: string) => s.charCodeAt(i);
 const charCodeAtFirstLetter = charCodeAt(0);
-const higherOrderSubtractBy = (s: string) => (i: string) =>
-  by(subtract)(charCodeAtFirstLetter)(i, s);
-const mapString = (str: string) => (mapper: any) => map(mapper)(...str);
-const join = (a: any[], sep: string) => a.join(sep);
-const joinDirectly = (a: any[]) => join(a, '');
-const structure = (s: string) =>
-  compose(joinDirectly, mapString(s))(higherOrderSubtractBy(s));
 
-export const checkIsomorphic = by(equal)(structure);
+const subtractBy = compose(by(subtract)(charCodeAtFirstLetter), arrayify);
+
+const mapString = (str: string) => (mapper: any) => map(mapper)([...str]);
+const structure = (s: string) =>
+  compose(join(''), mapString(s))(curry(subtractBy)(s));
+
+export const checkIsomorphic = compose(by(equal)(structure), arrayify);
