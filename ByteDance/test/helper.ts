@@ -1,4 +1,4 @@
-export const testIt = (func: Function) => (
+export const testIt = (func: Function, message?: string) => (
   expectedResult:
     | boolean
     | string
@@ -10,7 +10,7 @@ export const testIt = (func: Function) => (
     | number[][],
   ...args: (string | number | any)[]
 ) =>
-  it(args.join(' ') + ' --> ' + expectedResult, () => {
+  it(message || args.join(' ') + ' --> ' + expectedResult, () => {
     let actual = func(...args);
     expect(actual).toEqual(expectedResult);
   });

@@ -1,18 +1,24 @@
 export const findLengthOfLCIS = (a: number[]) => {
-  let sa = [a[0]];
+  if (a.length === 0) {
+    return 0;
+  }
+
   let max = 0;
 
-  a.slice(1).forEach(i => {
-    if (i > sa[sa.length - 1]) {
-      sa.push(i);
-    } else {
-      if (sa.length > max) {
-        max = sa.length;
+  const sa = a.slice(1).reduce(
+    (sa: number[], next) => {
+      if (next > sa[sa.length - 1]) {
+        sa.push(next);
+      } else {
+        sa = [next];
       }
 
-      sa = [];
-    }
-  });
+      max = Math.max(max, sa.length);
 
-  return max;
+      return sa;
+    },
+    [a[0]]
+  );
+
+  return Math.max(max, sa.length);
 };
