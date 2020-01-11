@@ -5,10 +5,14 @@ const map = op('map');
 const join = op('join');
 const charCodeAt = op('charCodeAt');
 
-const compose = (f: Function, g: Function) => (...x: any) => f(g(...x));
-const curry = (fun: Function) => (arg1: any) => (arg2: any) => fun(arg1, arg2);
+const compose = (...fns: Function[]) => (...x: any[]) =>
+  fns.reduceRight((prev, next) => [next.apply(null, prev)], x)[0];
+
+const curry = (f: Function) => (arg1: any) => (arg2: any) => f(arg1, arg2);
 
 const arrayify = (...x: any[]) => x;
+const pipe = (f: Function, g: Function, h: Function) => (a: any) => f(g)(h)(a);
+const pipe2 = (f: Function, g: Function) => (a: any) => f(g)(a);
 
 const by = (what: Function) => (mapper: Mapper) => compose(what, map(mapper));
 
@@ -17,10 +21,18 @@ const equal = ([a, b]: string[]) => a === b;
 
 const charCodeAtFirstLetter = charCodeAt(0);
 
-const subtractBy = compose(by(subtract)(charCodeAtFirstLetter), arrayify);
+const temp = (op1: Function, op2: Function) =>
+  compose(pipe(by, op1, op2), arrayify);
 
-const mapString = (str: string) => (mapper: any) => map(mapper)([...str]);
-const structure = (s: string) =>
-  compose(join(''), mapString(s))(curry(subtractBy)(s));
+const subtractBy = temp(subtract, charCodeAtFirstLetter);
 
-export const checkIsomorphic = compose(by(equal)(structure), arrayify);
+const mapString = (str: string) => (mapper: any) =>
+  pipe2(map, mapper)([...str]);
+const structure = (s: string) => {
+  let v = pipe2(curry, subtractBy)(s);
+  let f = compose(join(''), mapString(s));
+
+  return f(v);
+};
+
+export const checkIsomorphic = temp(equal, structure);
