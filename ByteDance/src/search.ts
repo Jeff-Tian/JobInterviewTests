@@ -1,5 +1,4 @@
 export const search = (nums: number[], target: number): number => {
-  console.log('search ', target, ' in ', nums);
   if (nums.length === 0) return -1;
   if (nums.length === 1 && nums[0] !== target) return -1;
 
