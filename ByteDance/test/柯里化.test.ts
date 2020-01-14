@@ -22,4 +22,19 @@ describe('柯里化', () => {
     expect(curry(last)(10)(20)(30)).toEqual(30);
     expect(curry(last2)(10)(20)(30)(40)).toEqual(40);
   });
+
+  it('curry map', () => {
+    expect(
+      curry(Array.prototype.map.bind([1, 2, 3]))((x: number) => x)
+    ).toEqual([1, 2, 3]);
+  });
+
+  it('curry call', () => {
+    expect(
+      curry(Array.prototype.map.call.bind(Array.prototype.map))(
+        [1, 2, 3],
+        (x: number) => x
+      )
+    ).toEqual([1, 2, 3]);
+  });
 });
