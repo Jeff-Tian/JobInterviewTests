@@ -1,8 +1,8 @@
 import { testIt } from './helper';
-import { isomorphic, structureOf } from '../src/isomorphic';
+import { isomorphic, structure } from '../src/isomorphic';
 
 describe('同构', () => {
-  testIt(structureOf, '一个字符串的结构，可以用其字符第一次出现的序号表达')(
+  testIt(structure, '一个字符串的结构，可以用其字符第一次出现的序号表达')(
     '002244',
     'aabbcc'
   );
