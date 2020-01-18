@@ -1,12 +1,4 @@
-export const memoize = (fn: Function) => (...args: any) => {
-  const cache: any = {};
-  const key = JSON.stringify(args);
-  if (!cache[key]) {
-    cache[key] = fn(...args);
-  }
-
-  return cache[key];
-};
+import { memoize } from './helpers/memoize';
 
 export const factorial = memoize((n: number): number => {
   if (n <= 0) {

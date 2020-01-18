@@ -1,5 +1,6 @@
 import { testIt } from './helper';
-import { ListNode, mergeTwoLists } from '../src/mergeTwoLists';
+import { mergeTwoLists } from '../src/mergeTwoLists';
+import { ListNode } from '../src/common/ListNode';
 
 describe('合并两个有序链表', () => {
   testIt(mergeTwoLists)(
