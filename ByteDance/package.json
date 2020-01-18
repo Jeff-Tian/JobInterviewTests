@@ -2,7 +2,6 @@
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -11,7 +10,8 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "dev": "node $NODE_DEBUG_OPTION --require ts-node/register src/index.ts"
   },
   "peerDependencies": {},
   "husky": {
