@@ -1,0 +1,26 @@
+import { testIt } from './helper';
+import { ListNode, mergeTwoLists } from '../src/mergeTwoLists';
+
+describe('合并两个有序链表', () => {
+  testIt(mergeTwoLists)(
+    [1, 1, 2, 3, 4, 4],
+    ListNode.fromArray([1, 2, 4]),
+    ListNode.fromArray([1, 3, 4])
+  );
+
+  testIt(mergeTwoLists)([], ListNode.fromArray([]), ListNode.fromArray([]));
+
+  testIt(mergeTwoLists)([0], ListNode.fromArray([]), ListNode.fromArray([0]));
+
+  testIt(mergeTwoLists)(
+    [1, 2],
+    ListNode.fromArray([2]),
+    ListNode.fromArray([1])
+  );
+
+  testIt(mergeTwoLists)(
+    [1, 2, 4, 5],
+    ListNode.fromArray([5]),
+    ListNode.fromArray([1, 2, 4])
+  );
+});
