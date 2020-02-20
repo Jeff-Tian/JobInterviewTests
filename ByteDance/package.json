@@ -11,7 +11,8 @@
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
-    "dev": "node $NODE_DEBUG_OPTION --require ts-node/register src/index.ts"
+    "dev": "node $NODE_DEBUG_OPTION --require ts-node/register src/index.ts",
+    "get": "echo 'https://leetcode-cn.com/explore/interview/card/bytedance/242/string/'"
   },
   "peerDependencies": {},
   "husky": {
