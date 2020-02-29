@@ -1,4 +1,4 @@
-type Mapper = (i: any) => any;
+type Mapper = (input: string) => string;
 
 export const equalBy = (fn: Mapper) => (...s: string[]) =>
   new Set(s.map(fn)).size === 1;
