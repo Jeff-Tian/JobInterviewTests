@@ -39,10 +39,19 @@ export const toArray = (n: ListNode | null) => {
   }
 
   let next: IListNode | null = n;
-  const res = [next.val];
+  const res: Array<number | string> = [next.val];
+
+  let count = 0;
   while (next.next !== null) {
+    count++;
     next = next.next;
     res.push(next.val);
+
+    if (count > 10) {
+      res.push('...');
+
+      return res;
+    }
   }
 
   return res;

@@ -1,39 +1,54 @@
 import { ListNode } from 'common/ListNode';
 
-const insert = (list: ListNode | null, node: ListNode) => {
-  if (!list) {
-    return node;
+const insert = (
+  theNode: ListNode,
+  sortedStart: ListNode,
+  sortedEnd: ListNode
+) => {
+  let current: ListNode = sortedStart;
+  let last: ListNode | null = null;
+
+  while (current && current !== sortedEnd && theNode.val > current.val) {
+    last = current;
+    current = current.next!;
   }
 
-  let prev: ListNode | null = null;
-  let next: ListNode | null = list;
-
-  while (next && node.val > next.val) {
-    prev = next;
-    next = next.next;
-  }
-
-  node.next = next;
-
-  if (prev) {
-    prev.next = node;
-    return list;
-  } else {
-    return node;
-  }
+  current.next = theNode.next;
+  theNode.next = current;
+  last!.next = theNode;
 };
 
 export const sortList = (head: ListNode) => {
-  let sorted: ListNode | null = null;
-  let cur: ListNode | null = head;
+  let sortedStart: ListNode | null = null;
+  let sortedEnd: ListNode | null = null;
 
-  while (cur) {
-    const newNode = new ListNode(cur.val);
-    sorted = insert(sorted, newNode);
+  let current: ListNode | null = head;
 
-    cur = cur.next;
+  while (current) {
+    if (sortedStart === null) {
+      sortedStart = current;
+      sortedEnd = current;
+
+      current = current.next;
+    } else {
+      if (current.val < sortedStart.val) {
+        const temp: ListNode | null = current.next;
+        current.next = sortedStart;
+        sortedStart = current;
+        sortedEnd!.next = temp;
+
+        current = sortedEnd!.next;
+      } else {
+        if (current.val < sortedEnd!.val) {
+          insert(current, sortedStart, sortedEnd!);
+
+          current = sortedEnd!.next;
+        } else {
+          sortedEnd = current;
+        }
+      }
+    }
   }
 
-  console.log('sroted = ', sorted?.toString());
-  return sorted;
+  return sortedStart;
 };
