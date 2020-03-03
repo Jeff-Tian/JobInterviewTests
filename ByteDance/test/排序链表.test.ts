@@ -3,18 +3,29 @@ import { insertNodeIntoSortedList } from 'sortList';
 // import { sortList } from 'sortList';
 
 describe('插入一个节点到已经排好序的链表里', () => {
-  it('3 -> [1, 2] ==> [1, 2, 3]', () => {
-    let sorted = ListNode.fromArray([1, 2]);
-    let head = sorted;
-    let tail = head!.next;
+  let sorted = ListNode.fromArray([1, 2]);
+  let head = sorted;
+  let tail = head!.next;
 
-    const { start, end } = insertNodeIntoSortedList(
+  it('3 -> [1, 2] ==> [1, 2, 3]', () => {
+    const [start, end] = insertNodeIntoSortedList(
       new ListNode(3),
       head!,
       tail!
     );
     expect(start.toString()).toEqual('1->2->3');
     expect(end.toString()).toEqual('3');
+  });
+
+  it.skip('0 -> [1, 2] ==> [0, 1, 2]', () => {
+    const [start, end] = insertNodeIntoSortedList(
+      new ListNode(0),
+      head!,
+      tail!
+    );
+
+    expect(start.toString()).toEqual('0->1->2');
+    expect(end.toString()).toEqual('2');
   });
 });
 

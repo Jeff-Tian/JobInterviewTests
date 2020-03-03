@@ -1,5 +1,10 @@
 import { ListNode } from 'common/ListNode';
 
+function insertBetween(node: ListNode, prev: ListNode, next: ListNode) {
+  prev.next = node;
+  node.next = next;
+}
+
 export const insertNodeIntoSortedList = (
   node: ListNode,
   start: ListNode,
@@ -13,10 +18,9 @@ export const insertNodeIntoSortedList = (
       prev = current;
       current = current.next!;
     } else {
-      prev.next = node;
-      node.next = current;
+      insertBetween(node, prev, current);
 
-      return { start, end };
+      return [start, end];
     }
   }
 
@@ -24,11 +28,10 @@ export const insertNodeIntoSortedList = (
     end.next = node;
     end = node;
   } else {
-    prev.next = node;
-    node.next = current;
+    insertBetween(node, prev, current);
   }
 
-  return { start, end };
+  return [start, end];
 };
 
 const insert = (
