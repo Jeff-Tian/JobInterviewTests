@@ -1,21 +1,56 @@
 import { ListNode } from 'common/ListNode';
 
+export const insertNodeIntoSortedList = (
+  node: ListNode,
+  start: ListNode,
+  end: ListNode
+) => {
+  let current = start;
+  let prev = current;
+
+  while (current !== end) {
+    if (current.val <= node.val) {
+      prev = current;
+      current = current.next!;
+    } else {
+      prev.next = node;
+      node.next = current;
+
+      return { start, end };
+    }
+  }
+
+  if (current.val <= node.val) {
+    end.next = node;
+    end = node;
+  } else {
+    prev.next = node;
+    node.next = current;
+  }
+
+  return { start, end };
+};
+
 const insert = (
   theNode: ListNode,
   sortedStart: ListNode,
   sortedEnd: ListNode
 ) => {
   let current: ListNode = sortedStart;
-  let last: ListNode | null = null;
+  let prev: ListNode | null = null;
 
-  while (current && current !== sortedEnd && theNode.val > current.val) {
-    last = current;
+  while (theNode.val > current.val) {
+    prev = current;
     current = current.next!;
+
+    if (current === sortedEnd) {
+      sortedEnd.next = theNode;
+    }
   }
 
+  prev!.next = theNode;
   current.next = theNode.next;
   theNode.next = current;
-  last!.next = theNode;
 };
 
 export const sortList = (head: ListNode) => {

@@ -21,6 +21,10 @@ export const testIt = (func: Function, message?: string) => (
         expectedResult,
     () => {
       let actual = func(...args);
+
+      if (actual instanceof ListNode && expectedResult instanceof ListNode) {
+        expect(actual.toString()).toEqual(expectedResult.toString());
+      }
       expect(actual).toEqual(expectedResult);
     }
   );
