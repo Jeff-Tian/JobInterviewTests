@@ -8,8 +8,17 @@ export const insertBetween = (
 ) => {
   assert(next !== prev, new Error('next cannot be the same as prev!'));
 
+  assert(
+    node.next === null,
+    new Error(
+      `can only insert a node, but got a list: ${node.toString()} -> [${prev.toString()}], ${
+        next ? next.toString() : null
+      }]`
+    )
+  );
+
   if (next && next.next === node) {
-    next.next = null;
+    next.next = node.next;
   }
 
   console.log(
@@ -43,7 +52,7 @@ export const insertNodeIntoSortedList = (
     start,
   ];
 
-  while (current && node.val > current.val) {
+  while (current && current !== end.next && node.val > current.val) {
     console.log('before move: ', [prev.toString(), current.toString()]);
     [prev, current] = [current, current.next];
     console.log('after move: ', [
@@ -58,14 +67,20 @@ export const insertNodeIntoSortedList = (
 };
 
 export const sortList = (head: ListNode) => {
+  console.log('sorting ', head.toString());
   let [sortedStart, sortedEnd] = [head, head];
 
   while (sortedEnd.next) {
+    const node = new ListNode(sortedEnd.next.val);
+    sortedEnd.next = sortedEnd.next.next;
+
     [sortedStart, sortedEnd] = insertNodeIntoSortedList(
-      sortedEnd.next,
+      node,
       sortedStart,
       sortedEnd
     );
+
+    console.log('sorted: ', [sortedStart.toString(), sortedEnd.toString()]);
   }
 
   return sortedStart;

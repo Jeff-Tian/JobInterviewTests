@@ -24,6 +24,20 @@ describe('insertBetween', () => {
     expect(head!.toString()).toEqual('-Infinity->1->2');
     expect(tail!.toString()).toEqual('2');
   });
+
+  it('[2, 1] -> [-Infinity, 3->4->2->1] ==> error', () => {
+    let head = new ListNode(-Infinity);
+    let tail = ListNode.fromArray([3, 4, 2, 1]);
+    let node = tail!.next!.next!;
+
+    try {
+      insertBetween(node!, head!, tail!);
+
+      expect(false).toBeTruthy();
+    } catch (ex) {
+      expect(ex.message.startsWith('can only insert a node'));
+    }
+  });
 });
 
 describe('插入一个节点到已经排好序的链表里', () => {
@@ -116,22 +130,26 @@ describe('插入一个节点到已经排好序的链表里', () => {
   });
 });
 
-describe('排序链表', () => {
+describe.only('排序链表', () => {
   testIt(sortList)(ListNode.fromArray([1]), ListNode.fromArray([1]));
-  testIt.skip(sortList)(ListNode.fromArray([1, 2]), ListNode.fromArray([2, 1]));
+  testIt(sortList)(ListNode.fromArray([1, 2]), ListNode.fromArray([2, 1]));
+  testIt(sortList)(
+    ListNode.fromArray([1, 2, 3]),
+    ListNode.fromArray([3, 2, 1])
+  );
 
-  testIt.skip(sortList)(
+  testIt(sortList)(
     ListNode.fromArray([1, 2, 3, 4]),
     ListNode.fromArray([4, 3, 2, 1])
   );
-  //
-  // testIt(sortList)(
-  //   ListNode.fromArray([1, 2, 3, 4]),
-  //   ListNode.fromArray([4, 2, 1, 3])
-  // );
-  //
-  // testIt(sortList)(
-  //   ListNode.fromArray([-1, 0, 3, 4, 5]),
-  //   ListNode.fromArray([-1, 5, 3, 4, 0])
-  // );
+
+  testIt(sortList)(
+    ListNode.fromArray([1, 2, 3, 4]),
+    ListNode.fromArray([4, 2, 1, 3])
+  );
+
+  testIt.skip(sortList)(
+    ListNode.fromArray([-1, 0, 3, 4, 5]),
+    ListNode.fromArray([-1, 5, 3, 4, 0])
+  );
 });

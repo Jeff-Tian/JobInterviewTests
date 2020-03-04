@@ -31,3 +31,4 @@ const test = (testFn: Function) => (func: Function, message?: string) => (
 
 export const testIt: any = test(it);
 testIt.skip = test(it.skip);
+testIt.only = test(it.only);
