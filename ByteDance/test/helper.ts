@@ -1,6 +1,6 @@
 import { ListNode } from '../src/common/ListNode';
 
-export const testIt = (func: Function, message?: string) => (
+const test = (testFn: Function) => (func: Function, message?: string) => (
   expectedResult:
     | boolean
     | string
@@ -14,7 +14,7 @@ export const testIt = (func: Function, message?: string) => (
     | ListNode,
   ...args: (string | number | any)[]
 ) =>
-  it(
+  testFn(
     message ||
       args.map(a => (a ? a.toString() : '<null>')).join(' ') +
         ' --> ' +
@@ -28,3 +28,6 @@ export const testIt = (func: Function, message?: string) => (
       expect(actual).toEqual(expectedResult);
     }
   );
+
+export const testIt: any = test(it);
+testIt.skip = test(it.skip);

@@ -1,9 +1,37 @@
 import { ListNode } from 'common/ListNode';
+import assert from 'assert';
 
-function insertBetween(node: ListNode, prev: ListNode, next: ListNode | null) {
+export const insertBetween = (
+  node: ListNode,
+  prev: ListNode,
+  next: ListNode | null
+) => {
+  assert(next !== prev, new Error('next cannot be the same as prev!'));
+
+  if (next && next.next === node) {
+    next.next = null;
+  }
+
+  console.log(
+    'inserting ',
+    node.toString(),
+    ' into [',
+    prev.toString(),
+    ', ',
+    next ? next.toString() : null,
+    ']'
+  );
   prev.next = node;
   node.next = next;
-}
+
+  console.log(
+    'inserted: [',
+    prev.toString(),
+    ', ',
+    next ? next.toString() : null,
+    ']'
+  );
+};
 
 export const insertNodeIntoSortedList = (
   node: ListNode,
@@ -16,7 +44,12 @@ export const insertNodeIntoSortedList = (
   ];
 
   while (current && node.val > current.val) {
+    console.log('before move: ', [prev.toString(), current.toString()]);
     [prev, current] = [current, current.next];
+    console.log('after move: ', [
+      prev.toString(),
+      current ? current.toString() : null,
+    ]);
   }
 
   insertBetween(node, prev, current);
@@ -24,58 +57,15 @@ export const insertNodeIntoSortedList = (
   return [prev.val === -Infinity ? node : start, current ? end : node];
 };
 
-const insert = (
-  theNode: ListNode,
-  sortedStart: ListNode,
-  sortedEnd: ListNode
-) => {
-  let current: ListNode = sortedStart;
-  let prev: ListNode | null = null;
-
-  while (theNode.val > current.val) {
-    prev = current;
-    current = current.next!;
-
-    if (current === sortedEnd) {
-      sortedEnd.next = theNode;
-    }
-  }
-
-  prev!.next = theNode;
-  current.next = theNode.next;
-  theNode.next = current;
-};
-
 export const sortList = (head: ListNode) => {
-  let sortedStart: ListNode | null = null;
-  let sortedEnd: ListNode | null = null;
+  let [sortedStart, sortedEnd] = [head, head];
 
-  let current: ListNode | null = head;
-
-  while (current) {
-    if (sortedStart === null) {
-      sortedStart = current;
-      sortedEnd = current;
-
-      current = current.next;
-    } else {
-      if (current.val < sortedStart.val) {
-        const temp: ListNode | null = current.next;
-        current.next = sortedStart;
-        sortedStart = current;
-        sortedEnd!.next = temp;
-
-        current = sortedEnd!.next;
-      } else {
-        if (current.val < sortedEnd!.val) {
-          insert(current, sortedStart, sortedEnd!);
-
-          current = sortedEnd!.next;
-        } else {
-          sortedEnd = current;
-        }
-      }
-    }
+  while (sortedEnd.next) {
+    [sortedStart, sortedEnd] = insertNodeIntoSortedList(
+      sortedEnd.next,
+      sortedStart,
+      sortedEnd
+    );
   }
 
   return sortedStart;

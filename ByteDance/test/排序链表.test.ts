@@ -1,6 +1,30 @@
 import { ListNode } from '../src/common/ListNode';
-import { insertNodeIntoSortedList } from 'sortList';
-// import { sortList } from 'sortList';
+import { insertBetween, insertNodeIntoSortedList, sortList } from 'sortList';
+import { testIt } from './helper';
+
+describe('insertBetween', () => {
+  it('3 -> [1]', () => {
+    let head = ListNode.fromArray([1]);
+    let tail: ListNode | null = null;
+    let node = new ListNode(3);
+
+    insertBetween(node, head!, tail);
+
+    expect(head!.toString()).toEqual('1->3');
+    expect(tail).toBe(null);
+  });
+
+  it('1 -> [-Infinity, 2->1]', () => {
+    let head = new ListNode(-Infinity);
+    let tail = ListNode.fromArray([2, 1]);
+    let node = tail!.next;
+
+    insertBetween(node!, head!, tail!);
+
+    expect(head!.toString()).toEqual('-Infinity->1->2');
+    expect(tail!.toString()).toEqual('2');
+  });
+});
 
 describe('插入一个节点到已经排好序的链表里', () => {
   it('3 -> [1, 2] ==> [1, 2, 3]', () => {
@@ -57,13 +81,49 @@ describe('插入一个节点到已经排好序的链表里', () => {
     expect(start.toString()).toEqual('1->2->3->4->5->6->7->8->9->10');
     expect(end.toString()).toEqual('10');
   });
+
+  it('5 -> [6] ==> [5, 6]', () => {
+    let head = ListNode.fromArray([6]);
+    const [start, end] = insertNodeIntoSortedList(
+      new ListNode(5),
+      head!,
+      head!
+    );
+    expect(start.toString()).toEqual('5->6');
+    expect(end.toString()).toEqual('6');
+  });
+
+  it('6 -> [5] ==> [5, 6]', () => {
+    let head = ListNode.fromArray([5]);
+    const [start, end] = insertNodeIntoSortedList(
+      new ListNode(6),
+      head!,
+      head!
+    );
+
+    expect(start.toString()).toEqual('5->6');
+    expect(end.toString()).toEqual('6');
+  });
+
+  it('[1] -> [2] ==> [1, 2]', () => {
+    let head = ListNode.fromArray([2, 1]);
+    let node = head!.next!;
+
+    const [start, end] = insertNodeIntoSortedList(node, head!, head!);
+
+    expect(start.toString()).toEqual('1->2');
+    expect(end.toString()).toEqual('2');
+  });
 });
 
 describe('排序链表', () => {
-  // testIt(sortList)(
-  //   ListNode.fromArray([1, 2, 3, 4]),
-  //   ListNode.fromArray([4, 3, 2, 1])
-  // );
+  testIt(sortList)(ListNode.fromArray([1]), ListNode.fromArray([1]));
+  testIt.skip(sortList)(ListNode.fromArray([1, 2]), ListNode.fromArray([2, 1]));
+
+  testIt.skip(sortList)(
+    ListNode.fromArray([1, 2, 3, 4]),
+    ListNode.fromArray([4, 3, 2, 1])
+  );
   //
   // testIt(sortList)(
   //   ListNode.fromArray([1, 2, 3, 4]),
