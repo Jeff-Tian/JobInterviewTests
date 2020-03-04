@@ -1,6 +1,6 @@
 import { ListNode } from 'common/ListNode';
 
-function insertBetween(node: ListNode, prev: ListNode, next: ListNode) {
+function insertBetween(node: ListNode, prev: ListNode, next: ListNode | null) {
   prev.next = node;
   node.next = next;
 }
@@ -10,28 +10,18 @@ export const insertNodeIntoSortedList = (
   start: ListNode,
   end: ListNode
 ) => {
-  let current = start;
-  let prev = current;
+  let [prev, current]: Array<ListNode | null> = [
+    new ListNode(-Infinity),
+    start,
+  ];
 
-  while (current !== end) {
-    if (current.val <= node.val) {
-      prev = current;
-      current = current.next!;
-    } else {
-      insertBetween(node, prev, current);
-
-      return [start, end];
-    }
+  while (current && node.val > current.val) {
+    [prev, current] = [current, current.next];
   }
 
-  if (current.val <= node.val) {
-    end.next = node;
-    end = node;
-  } else {
-    insertBetween(node, prev, current);
-  }
+  insertBetween(node, prev, current);
 
-  return [start, end];
+  return [prev.val === -Infinity ? node : start, current ? end : node];
 };
 
 const insert = (

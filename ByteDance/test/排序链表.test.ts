@@ -3,11 +3,10 @@ import { insertNodeIntoSortedList } from 'sortList';
 // import { sortList } from 'sortList';
 
 describe('插入一个节点到已经排好序的链表里', () => {
-  let sorted = ListNode.fromArray([1, 2]);
-  let head = sorted;
-  let tail = head!.next;
-
   it('3 -> [1, 2] ==> [1, 2, 3]', () => {
+    let head = ListNode.fromArray([1, 2]);
+    let tail = head!.next;
+
     const [start, end] = insertNodeIntoSortedList(
       new ListNode(3),
       head!,
@@ -17,7 +16,10 @@ describe('插入一个节点到已经排好序的链表里', () => {
     expect(end.toString()).toEqual('3');
   });
 
-  it.skip('0 -> [1, 2] ==> [0, 1, 2]', () => {
+  it('0 -> [1, 2] ==> [0, 1, 2]', () => {
+    let head = ListNode.fromArray([1, 2]);
+    let tail = head!.next;
+
     const [start, end] = insertNodeIntoSortedList(
       new ListNode(0),
       head!,
@@ -26,6 +28,34 @@ describe('插入一个节点到已经排好序的链表里', () => {
 
     expect(start.toString()).toEqual('0->1->2');
     expect(end.toString()).toEqual('2');
+  });
+
+  it('1.5 -> [1, 2] ==> [1, 1.5, 2]', () => {
+    let head = ListNode.fromArray([1, 2]);
+    let tail = head!.next;
+
+    const [start, end] = insertNodeIntoSortedList(
+      new ListNode(1.5),
+      head!,
+      tail!
+    );
+
+    expect(start.toString()).toEqual('1->1.5->2');
+    expect(end.toString()).toEqual('2');
+  });
+
+  it('5 -> [1, 2, 3, 4, 6, 7, 8, 9, 10] ==> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]', () => {
+    let head = ListNode.fromArray([1, 2, 3, 4, 6, 7, 8, 9, 10]);
+    let tail = head!.next!.next!.next!.next!.next!.next!.next!.next!;
+
+    const [start, end] = insertNodeIntoSortedList(
+      new ListNode(5),
+      head!,
+      tail!
+    );
+
+    expect(start.toString()).toEqual('1->2->3->4->5->6->7->8->9->10');
+    expect(end.toString()).toEqual('10');
   });
 });
 
