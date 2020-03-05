@@ -30,3 +30,12 @@ testIt(sortList)(
   ListNode.fromArray([-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
   ListNode.fromArray([11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1])
 );
+
+const a = new Array(10000).fill(0).map((_, i) => i)
+
+testIt.only(sortList)(
+  ListNode.fromArray(a),
+  ListNode.fromArray(a.reverse())
+);
+
+testIt.only(sortList)(ListNode.fromArray([0, 0, 0]), ListNode.fromArray([0, 0, 0]))
