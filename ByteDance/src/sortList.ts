@@ -16,19 +16,12 @@ const insert = (node: ListNode, sortedList: ListNode) => {
     return node;
   }
 
-  while (next) {
-    if (prev.val < node.val && node.val <= next.val) {
-      prev.next = node;
-      node.next = next;
-
-      return sortedList;
-    } else {
-      [prev, next] = [prev.next!, next.next];
-    }
+  while (next && !(prev.val < node.val && node.val <= next.val)) {
+    [prev, next] = [prev.next!, next.next];
   }
 
   prev.next = node;
-  node.next = null;
+  node.next = next;
 
   return sortedList;
 };
