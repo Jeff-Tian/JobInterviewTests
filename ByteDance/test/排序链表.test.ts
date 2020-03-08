@@ -84,10 +84,6 @@ testIt(bubleSortList)(
   ListNode.fromArray([-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
 );
 
-const a = new Array(10000).fill(0).map((_, i) => i);
-
-testIt(mergeSortListPromisily)(ListNode.fromArray(a), ListNode.fromArray(a.reverse()));
-
 testIt(sortListRecursively)(
   ListNode.fromArray([0, 0, 0]),
   ListNode.fromArray([0, 0, 0])
@@ -167,9 +163,15 @@ describe('merge sort', () => {
     expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2, 3, 4]));
   });
 
-  testIt(mergeSortList)(ListNode.fromArray([1, 2, 3, 4, 5]), ListNode.fromArray([5, 4, 3, 2, 1]));
+  testIt(mergeSortList)(
+    ListNode.fromArray([1, 2, 3, 4, 5]),
+    ListNode.fromArray([5, 4, 3, 2, 1])
+  );
 
-  testIt(mergeSortList)(ListNode.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), ListNode.fromArray([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]));
+  testIt(mergeSortList)(
+    ListNode.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+    ListNode.fromArray([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])
+  );
 
   const a = new Array(26).fill(0).map((_, i) => i);
   testIt(mergeSortList)(ListNode.fromArray(a), ListNode.fromArray(a.reverse()));
@@ -179,21 +181,32 @@ describe('merge async', () => {
   it('merges [] async', done => {
     let list = ListNode.fromArray([]);
     mergeSortListAsync(list, (res: ListNode | null) => {
-      expect(res).toEqual(ListNode.fromArray([]))
+      expect(res).toEqual(ListNode.fromArray([]));
       done();
-    })
+    });
   });
 
-  it('merges async', (done) => {
+  it('merges async', done => {
     let list = ListNode.fromArray([4, 3, 2, 1]);
     mergeSortListAsync(list, (res: ListNode) => {
-      expect(res).toEqual(ListNode.fromArray([1, 2, 3, 4]))
+      expect(res).toEqual(ListNode.fromArray([1, 2, 3, 4]));
       done();
-    })
-  })
+    });
+  });
 
   it('merges in a promisified way', async () => {
     let list = ListNode.fromArray([4, 3, 2, 1]);
-    expect(await mergeSortListPromisily(list)).toEqual(ListNode.fromArray([1, 2, 3, 4]));
-  })
-})
+    expect(await mergeSortListPromisily(list)).toEqual(
+      ListNode.fromArray([1, 2, 3, 4])
+    );
+  });
+
+  it('sorts large nodes', async () => {
+    const a = new Array(10000).fill(0).map((_, i) => i);
+    let list = ListNode.fromArray(a.reverse());
+    const sorted = await mergeSortListPromisily(list);
+    console.log('sorted = ', sorted!.toString());
+
+    expect(sorted).toEqual(ListNode.fromArray(a));
+  });
+});

@@ -206,11 +206,15 @@ export const mergeSortList = (list: ListNode | null): ListNode | null => {
 };
 
 const timeout = 10;
-const callbackLater = (callback: any, timeout: number, ...args: any[]) => setTimeout(callback, timeout, ...args);
+const callbackLater = (callback: any, timeout: number, ...args: any[]) =>
+  setTimeout(callback, timeout, ...args);
 
-export const mergeSortListAsync = (list: ListNode | null, callback: any): void => {
+export const mergeSortListAsync = (
+  list: ListNode | null,
+  callback: any
+): void => {
   if (list === null || list.next === null) {
-    callbackLater(callback, timeout, list)
+    callbackLater(callback, timeout, list);
 
     return;
   }
@@ -227,10 +231,12 @@ export const mergeSortListAsync = (list: ListNode | null, callback: any): void =
   };
 
   callbackLater(mergeSortListAsync, timeout, list, sortRight);
-}
+};
 
-export const mergeSortListPromisily = (list: ListNode | null) => {
-  return new Promise((resolve) => {
+export const mergeSortListPromisily = (
+  list: ListNode | null
+): Promise<ListNode | null> => {
+  return new Promise(resolve => {
     mergeSortListAsync(list, resolve);
-  })
-}
+  });
+};
