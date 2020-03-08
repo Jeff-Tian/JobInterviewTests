@@ -42,31 +42,30 @@ export const sortListRecursively = (head: ListNode | null): ListNode | null => {
   return insert(head, sortListRecursively(head.next)!);
 };
 
-
 /**
- * 
- * @param head 
- * @param node1 
+ *
+ * @param head
+ * @param node1
  * @param node2
- * 
+ *
  * Original:
  * head -> ... -> prev1 -> node1 -> ... -> prev2 -> node2 -> ...
- * 
+ *
  * Will point prev1 to node2:
  * head -> ... -> prev1 -x node1 -> ... -> prev2 -> node2 -> ...
- * 
+ *
  * Pointed prev1 to node2:
  *                  +---------------------------------+
  *                  |                                 ↓
- * head -> ... -> prev1    node1 -> ... -> prev2 -> node2 -> ... 
- * 
+ * head -> ... -> prev1    node1 -> ... -> prev2 -> node2 -> ...
+ *
  * Remember node1's next:
  *                  +---------------------------------+
  *                  |                                 ↓
  * head -> ... -> prev1    node1 -> ... -> prev2 -> node2 -> ...
  *                                   ↑
  *                         original node1's next
- * 
+ *
  * Point node1 to node2's next:
  *                  +-------------------------------+
  *                  |                               ↓
@@ -74,7 +73,7 @@ export const sortListRecursively = (head: ListNode | null): ListNode | null => {
  *                         |        ↑                        ↑
  *                         | original node1's next           |
  *                         +---------------------------------+
- * 
+ *
  * Point node2 to original node1's next:
  *                  +--------------------------------+
  *                  |                                ↓
@@ -82,7 +81,7 @@ export const sortListRecursively = (head: ListNode | null): ListNode | null => {
  *                         |        ↑                |       ↑
  *                         |        +----------------+       |
  *                         +---------------------------------+
- * 
+ *
  * Point prev2 to node1:
  *                  +--------------------------------+
  *                  |      +----------------+        |
@@ -94,31 +93,44 @@ export const sortListRecursively = (head: ListNode | null): ListNode | null => {
  *
  * That is:
  * head -> ... -> prev1 -> node2 -> ... -> prev2 -> node1 -> ...
- * 
+ *
  */
-export const swap = (prev1: ListNode, node1: ListNode, prev2: ListNode, node2: ListNode): void => {
+export const swap = (
+  prev1: ListNode,
+  node1: ListNode,
+  prev2: ListNode,
+  node2: ListNode
+): void => {
   prev1.next = node2;
   const originalNode1Next = node1.next;
   node1.next = node2.next;
   node2.next = originalNode1Next;
   prev2.next = node1;
-}
+};
 
-export const swapHeadAndNode = (head: ListNode, prev: ListNode, node: ListNode): ListNode => {
+export const swapHeadAndNode = (
+  head: ListNode,
+  prev: ListNode,
+  node: ListNode
+): ListNode => {
   const artificialHead = new ListNode(-Infinity);
   artificialHead.next = head;
 
   swap(artificialHead, head, prev, node);
 
   return artificialHead.next;
-}
+};
 
-export const swapNeighbors = (prev: ListNode, node1: ListNode, node2: ListNode): void => {
+export const swapNeighbors = (
+  prev: ListNode,
+  node1: ListNode,
+  node2: ListNode
+): void => {
   node1.next = node2.next;
   node2.next = node1;
 
   prev.next = node2;
-}
+};
 
 export const bubleSortList = (list: ListNode) => {
   const assistNode = new ListNode(-Infinity);
@@ -150,4 +162,35 @@ export const bubleSortList = (list: ListNode) => {
   }
 
   return assistNode.next;
+};
+
+export const getListLength = (head: ListNode | null): number => {
+  let count = 0;
+  let current: ListNode | null = head;
+
+  while (current) {
+    count++;
+
+    current = current.next
+  }
+
+  return count;
+}
+
+export const getMiddleNode = (head: ListNode | null): ListNode | null => {
+  if (head === null || head.next === null) {
+    return head;
+  }
+
+  let [slow, fast]: [ListNode, ListNode | null] = [head, head.next];
+
+  while (fast && fast.next) {
+    [slow, fast] = [slow.next!, fast.next.next];
+  }
+
+  return slow;
+}
+
+export const mergeSortList = (list: ListNode) => {
+  return list;
 }
