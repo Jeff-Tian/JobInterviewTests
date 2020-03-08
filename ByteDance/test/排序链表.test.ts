@@ -8,6 +8,7 @@ import {
   swapNeighbors,
   getListLength,
   getMiddleNode,
+  mergeSortList,
 } from 'sortList';
 import { testIt } from './helper';
 
@@ -81,7 +82,7 @@ testIt(bubleSortList)(
 
 const a = new Array(10000).fill(0).map((_, i) => i);
 
-testIt(sortListRecursively)(
+testIt(mergeSortList)(
   ListNode.fromArray(a),
   ListNode.fromArray(a.reverse())
 );
@@ -117,11 +118,11 @@ describe('swap', () => {
   });
 });
 
-describe('binary sort', () => {
+describe('merge sort', () => {
   it('gets list length', () => {
     const list = ListNode.fromArray([1, 2, 3, 4]);
     expect(getListLength(list)).toEqual(4);
-  })
+  });
 
   it('gets middle node', () => {
     let list = ListNode.fromArray([]);
@@ -137,7 +138,26 @@ describe('binary sort', () => {
     expect(getMiddleNode(list)).toEqual(list!.next);
 
     list = ListNode.fromArray([1, 2, 3, 4]);
-    expect(getMiddleNode(list)!.toString() ).toEqual('2->3->4');
+    expect(getMiddleNode(list)!.toString()).toEqual('2->3->4');
+  });
+
+  it('merge sorts []', () => {
+    let list = ListNode.fromArray([]);
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([]))
   })
 
-})
+  it('merge sorts [1]', () => {
+    let list = ListNode.fromArray([1]);
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1]))
+  })
+
+  it('merge sorts [2, 1]', () => {
+    let list = ListNode.fromArray([2, 1]);
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2]));
+  })
+
+  it('merge sorts [3, 2, 1]', () => {
+    let list = ListNode.fromArray([3, 2, 1]);
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2, 3]));
+  })
+});

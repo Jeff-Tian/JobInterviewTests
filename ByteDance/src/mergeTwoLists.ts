@@ -1,10 +1,10 @@
 import { ListNode, toArray } from './common/ListNode';
 
 export const mergeTwoLists = (
-  l1: ListNode,
-  l2: ListNode
-): Array<number | string> => {
-  return toArray(l1)
+  l1: ListNode | null,
+  l2: ListNode | null
+): ListNode | null => {
+  return ListNode.fromArray(toArray(l1)
     .concat(toArray(l2))
     .sort((x, y) => {
       if (x > y) {
@@ -14,5 +14,5 @@ export const mergeTwoLists = (
         return -1;
       }
       return 0;
-    });
+    }));
 };

@@ -1,4 +1,5 @@
 import { ListNode } from 'common/ListNode';
+import { mergeTwoLists } from 'mergeTwoLists';
 
 export const swapFirstTwoNodes = (node1: ListNode, node2: ListNode) => {
   node1.next = node2.next;
@@ -171,11 +172,11 @@ export const getListLength = (head: ListNode | null): number => {
   while (current) {
     count++;
 
-    current = current.next
+    current = current.next;
   }
 
   return count;
-}
+};
 
 export const getMiddleNode = (head: ListNode | null): ListNode | null => {
   if (head === null || head.next === null) {
@@ -189,8 +190,17 @@ export const getMiddleNode = (head: ListNode | null): ListNode | null => {
   }
 
   return slow;
-}
+};
 
-export const mergeSortList = (list: ListNode) => {
-  return list;
-}
+export const mergeSortList = (list: ListNode | null): ListNode | null => {
+  if (list === null || list.next === null) {
+    return list;
+  }
+
+  const middle = getMiddleNode(list);
+  const nextOfMiddle = middle!.next;
+
+  middle!.next = null;
+
+  return mergeTwoLists(mergeSortList(list), mergeSortList(nextOfMiddle));
+};

@@ -1,18 +1,18 @@
 export interface IListNode {
-  val: number;
+  val: number | string;
   next: IListNode | null;
 }
 
 export class ListNode implements IListNode {
-  val: number;
+  val: number | string;
   next: IListNode | null;
 
-  constructor(val: number) {
+  constructor(val: number | string) {
     this.val = val;
     this.next = null;
   }
 
-  static fromArray(a: number[]): ListNode | null {
+  static fromArray(a: Array<number | string>): ListNode | null {
     if (a.length === 0) {
       return null;
     }
