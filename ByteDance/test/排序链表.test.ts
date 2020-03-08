@@ -9,8 +9,12 @@ import {
   getListLength,
   getMiddleNode,
   mergeSortList,
+  mergeSortListAsync,
+  mergeSortListPromisily,
 } from 'sortList';
 import { testIt } from './helper';
+
+jest.setTimeout(480000);
 
 testIt(sortListRecursively)(null, null);
 testIt(sortListRecursively)(ListNode.fromArray([1]), ListNode.fromArray([1]));
@@ -82,10 +86,7 @@ testIt(bubleSortList)(
 
 const a = new Array(10000).fill(0).map((_, i) => i);
 
-testIt(mergeSortList)(
-  ListNode.fromArray(a),
-  ListNode.fromArray(a.reverse())
-);
+testIt(mergeSortListPromisily)(ListNode.fromArray(a), ListNode.fromArray(a.reverse()));
 
 testIt(sortListRecursively)(
   ListNode.fromArray([0, 0, 0]),
@@ -143,21 +144,56 @@ describe('merge sort', () => {
 
   it('merge sorts []', () => {
     let list = ListNode.fromArray([]);
-    expect(mergeSortList(list)).toEqual(ListNode.fromArray([]))
-  })
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([]));
+  });
 
   it('merge sorts [1]', () => {
     let list = ListNode.fromArray([1]);
-    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1]))
-  })
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1]));
+  });
 
   it('merge sorts [2, 1]', () => {
     let list = ListNode.fromArray([2, 1]);
     expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2]));
-  })
+  });
 
   it('merge sorts [3, 2, 1]', () => {
     let list = ListNode.fromArray([3, 2, 1]);
     expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2, 3]));
-  })
+  });
+
+  it('merge sorts [4, 3, 2, 1]', () => {
+    let list = ListNode.fromArray([4, 3, 2, 1]);
+    expect(mergeSortList(list)).toEqual(ListNode.fromArray([1, 2, 3, 4]));
+  });
+
+  testIt(mergeSortList)(ListNode.fromArray([1, 2, 3, 4, 5]), ListNode.fromArray([5, 4, 3, 2, 1]));
+
+  testIt(mergeSortList)(ListNode.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), ListNode.fromArray([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]));
+
+  const a = new Array(26).fill(0).map((_, i) => i);
+  testIt(mergeSortList)(ListNode.fromArray(a), ListNode.fromArray(a.reverse()));
 });
+
+describe('merge async', () => {
+  it('merges [] async', done => {
+    let list = ListNode.fromArray([]);
+    mergeSortListAsync(list, (res: ListNode | null) => {
+      expect(res).toEqual(ListNode.fromArray([]))
+      done();
+    })
+  });
+
+  it('merges async', (done) => {
+    let list = ListNode.fromArray([4, 3, 2, 1]);
+    mergeSortListAsync(list, (res: ListNode) => {
+      expect(res).toEqual(ListNode.fromArray([1, 2, 3, 4]))
+      done();
+    })
+  })
+
+  it('merges in a promisified way', async () => {
+    let list = ListNode.fromArray([4, 3, 2, 1]);
+    expect(await mergeSortListPromisily(list)).toEqual(ListNode.fromArray([1, 2, 3, 4]));
+  })
+})

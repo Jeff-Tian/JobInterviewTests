@@ -27,8 +27,8 @@ function runTests(
       | number
       | number[]
       | {
-          [key: string]: number;
-        }
+        [key: string]: number;
+      }
       | number[][]
       | null
       | ListNode,
@@ -37,13 +37,13 @@ function runTests(
     funcs.forEach(func =>
       testFn(
         message ||
-          func.toString().substr(10, 10) +
-            ': ' +
-            args.map(a => (a ? a.toString() : '<null>')).join(' ') +
-            ' --> ' +
-            expectedResult,
-        () => {
-          let actual = func(...args);
+        func.toString().substr(10, 10) +
+        ': ' +
+        args.map(a => (a ? a.toString() : '<null>')).join(' ') +
+        ' --> ' +
+        expectedResult,
+        async () => {
+          let actual = await func(...args);
           if (
             actual instanceof ListNode &&
             expectedResult instanceof ListNode

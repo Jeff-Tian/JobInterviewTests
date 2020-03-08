@@ -204,3 +204,33 @@ export const mergeSortList = (list: ListNode | null): ListNode | null => {
 
   return mergeTwoLists(mergeSortList(list), mergeSortList(nextOfMiddle));
 };
+
+const timeout = 10;
+const callbackLater = (callback: any, timeout: number, ...args: any[]) => setTimeout(callback, timeout, ...args);
+
+export const mergeSortListAsync = (list: ListNode | null, callback: any): void => {
+  if (list === null || list.next === null) {
+    callbackLater(callback, timeout, list)
+
+    return;
+  }
+
+  const middle = getMiddleNode(list);
+  const nextOfMiddle = middle!.next;
+  middle!.next = null;
+
+  const sortRight = (leftSorted: ListNode | null) => {
+    const merge = (rightSorted: ListNode | null) => {
+      callbackLater(callback, timeout, mergeTwoLists(leftSorted, rightSorted));
+    };
+    callbackLater(mergeSortListAsync, timeout, nextOfMiddle, merge);
+  };
+
+  callbackLater(mergeSortListAsync, timeout, list, sortRight);
+}
+
+export const mergeSortListPromisily = (list: ListNode | null) => {
+  return new Promise((resolve) => {
+    mergeSortListAsync(list, resolve);
+  })
+}
