@@ -28,6 +28,36 @@ export class ListNode implements IListNode {
     return root;
   }
 
+  static createCycleLink(
+    a: Array<number | string>,
+    pos: number
+  ): ListNode | null {
+    if (pos < 0) {
+      return ListNode.fromArray(a);
+    }
+
+    if (a.length === 0) {
+      return null;
+    }
+
+    const root = new ListNode(a[0]);
+    let next: IListNode = root;
+    let cycleStart = pos === 0 ? root : null;
+
+    a.slice(1).forEach((i, index) => {
+      next.next = new ListNode(i);
+      next = next.next;
+
+      if (index + 1 === pos) {
+        cycleStart = next;
+      }
+    });
+
+    next.next = cycleStart;
+
+    return root;
+  }
+
   toString(): string {
     return toArray(this).join('->');
   }
