@@ -1,13 +1,9 @@
-import { testIt } from './helper';
+import { testIt, nodeValueOf } from './helper';
 import { ListNode } from 'common/ListNode';
 import { detectCycle } from 'detectCycle';
-import { compose } from 'helpers/compose';
 
 describe('环形链表 II', () => {
-  const systemUnderTest = compose(
-    (n: ListNode | null) => (n ? n.val : null),
-    detectCycle
-  );
+  const systemUnderTest = nodeValueOf(detectCycle);
 
   testIt(systemUnderTest)(2, ListNode.createCycleLink([3, 2, 0, -4], 1));
   testIt(systemUnderTest)(1, ListNode.createCycleLink([1, 2], 0));

@@ -1,4 +1,5 @@
 import { ListNode } from '../src/common/ListNode';
+import { compose } from 'helpers/compose';
 
 const test = (testFn: Function) => (func: Function, message?: string) =>
   runTests(testFn, message, func);
@@ -27,8 +28,8 @@ function runTests(
       | number
       | number[]
       | {
-          [key: string]: number;
-        }
+        [key: string]: number;
+      }
       | number[][]
       | null
       | ListNode,
@@ -37,11 +38,11 @@ function runTests(
     funcs.forEach(func =>
       testFn(
         message ||
-          func.toString().substr(10, 10) +
-            ': ' +
-            args.map(a => (a ? a.toString() : '<null>')).join(' ') +
-            ' --> ' +
-            expectedResult,
+        func.toString().substr(10, 10) +
+        ': ' +
+        args.map(a => (a ? a.toString() : '<null>')).join(' ') +
+        ' --> ' +
+        expectedResult,
         async () => {
           let actual = await func(...args);
           if (
@@ -55,3 +56,11 @@ function runTests(
       )
     );
 }
+
+export const nodeValueOf = (fn: (...args: any[]) => ListNode | null) => compose(
+  (n: ListNode | null) => (n ? n.val : null),
+  fn
+);
+
+export const testCases = (fn: Function) => (cases: Array<{ expected: number | null, input: any[] }>) =>
+  cases.forEach(c => testIt(fn)(c.expected, ...c.input))
