@@ -103,6 +103,12 @@ export const toArray = (n: ListNode | null) => {
   while (next.next !== null) {
     count++;
     next = next.next;
+
+    if (next === n) {
+      res.push('...');
+      return res;
+    }
+
     res.push(next.val);
 
     if (count > 10) {

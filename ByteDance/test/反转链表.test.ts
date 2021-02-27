@@ -15,3 +15,25 @@ describe(' 反转链表', () => {
     ListNode.fromArray([1, 2, 3, 4, 5])
   );
 });
+
+describe('支持对循环链表进行反转', () => {
+  testIt(reverseList)(
+    ListNode.createCycleLink([1], 0),
+    ListNode.createCycleLink([1], 0)
+  );
+
+  const cycleWith2Nodes = ListNode.createCycleLink([2, 1], 0);
+
+  it('反转2个节点的循环链表', () => {
+    expect(ListNode.createCycleLink([1, 2], 0)!.toString()).toEqual(
+      reverseList(cycleWith2Nodes, cycleWith2Nodes).toString()
+    );
+  });
+
+  const cycleWith3Nodes = ListNode.createCycleLink([3, 2, 1], 0);
+  it('反转3个节点的循环链表', () => {
+    expect(ListNode.createCycleLink([1, 2, 3], 0)!.toString()).toEqual(
+      reverseList(cycleWith3Nodes, cycleWith3Nodes)!.toString()
+    );
+  });
+});

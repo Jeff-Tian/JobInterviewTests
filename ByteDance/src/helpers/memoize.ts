@@ -1,8 +1,14 @@
+import { ListNode } from 'common/ListNode';
+
 export const memoize = (fn: Function) => {
   const cache: Record<string, any> = {};
 
   return (...args: any) => {
-    const key = JSON.stringify(args);
+    const key = args
+      .map((arg: any) =>
+        arg instanceof ListNode ? arg.toString() : JSON.stringify(arg)
+      )
+      .join('-');
     if (!cache[key]) {
       cache[key] = fn(...args);
     }

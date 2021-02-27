@@ -2,19 +2,27 @@ import { memoized } from 'helpers/memoize';
 import { IListNode } from './common/ListNode';
 
 export const reverseList = memoized(
-  (head: IListNode | null): IListNode | null => {
+  (head: IListNode | null, cycleStart?: IListNode | null): IListNode | null => {
     if (!head) {
       return null;
     }
 
-    if (head.next === null) {
+    if (head.next === null || head.next === head) {
       return head;
     }
 
-    const rev = reverseList(head.next);
+    if (head.next === cycleStart) {
+      return head;
+    }
+
+    const rev = reverseList(head.next, cycleStart);
 
     head.next!.next = head;
-    head.next = null;
+    if (!cycleStart) {
+      head.next = null;
+    } else {
+      head.next = rev;
+    }
 
     return rev;
   }
