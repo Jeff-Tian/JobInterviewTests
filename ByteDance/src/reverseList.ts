@@ -1,7 +1,7 @@
+import { memoized } from 'helpers/memoize';
 import { IListNode } from './common/ListNode';
-import { memoize } from './helpers/memoize';
 
-export const reverseList = memoize(
+export const reverseList = memoized(
   (head: IListNode | null): IListNode | null => {
     if (!head) {
       return null;
