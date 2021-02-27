@@ -58,27 +58,32 @@ export class ListNode implements IListNode {
     return root;
   }
 
-  static createIntersectedLinks(listA: number[], listB: number[], skipA: number, skipB: number) {
+  static createIntersectedLinks(
+    listA: number[],
+    listB: number[],
+    skipA: number,
+    skipB: number
+  ) {
     const commonTail = ListNode.fromArray(listA.slice(skipA));
 
     const a = new ListNode(-Infinity);
     const b = new ListNode(-Infinity);
 
     let cur = a;
-    listA.slice(0, skipA).forEach((i) => {
+    listA.slice(0, skipA).forEach(i => {
       cur.next = new ListNode(i);
       cur = cur.next;
-    })
+    });
     cur.next = commonTail;
 
     cur = b;
     listB.slice(0, skipB).forEach(i => {
       cur.next = new ListNode(i);
       cur = cur.next;
-    })
+    });
     cur.next = commonTail;
 
-    return [a.next!, b.next!]
+    return [a.next!, b.next!];
   }
 
   toString(): string {

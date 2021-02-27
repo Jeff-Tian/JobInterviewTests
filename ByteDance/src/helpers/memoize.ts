@@ -10,3 +10,5 @@ export const memoize = (fn: Function) => {
     return cache[key];
   };
 };
+
+export const memoized = memoize(memoize);
