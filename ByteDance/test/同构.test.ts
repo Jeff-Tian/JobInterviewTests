@@ -3,7 +3,7 @@ import { isomorphic, structure } from '../src/isomorphic';
 
 describe('同构', () => {
   testIt(structure, '一个字符串的结构，可以用其字符第一次出现的序号表达')(
-    '002244',
+    '0-0-2-2-4-4',
     'aabbcc'
   );
   testIt(isomorphic, '空字符串应该同构')(true, '', '');
@@ -24,4 +24,5 @@ describe('同构', () => {
     'xxyyzz'
   );
   testIt(isomorphic)(true, 'aabbcc', 'zzxxyy');
+  testIt(isomorphic)(false, 'abcdefghijk', 'abcdefghijba');
 });
